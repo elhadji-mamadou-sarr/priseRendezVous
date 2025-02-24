@@ -101,5 +101,13 @@ namespace priseRendezVous.View
                 db.SaveChanges();
             }
         }
+
+        private void frmPatient_Load_1(object sender, EventArgs e)
+        {
+            ResetForm();
+            dgPatient.DataSource = db.Patients.ToList();
+
+        }
+
     }
 }

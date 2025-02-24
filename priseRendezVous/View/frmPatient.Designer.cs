@@ -51,9 +51,9 @@
             // dgPatient
             // 
             this.dgPatient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgPatient.Location = new System.Drawing.Point(299, 68);
+            this.dgPatient.Location = new System.Drawing.Point(299, 79);
             this.dgPatient.Name = "dgPatient";
-            this.dgPatient.Size = new System.Drawing.Size(452, 337);
+            this.dgPatient.Size = new System.Drawing.Size(548, 337);
             this.dgPatient.TabIndex = 0;
             // 
             // label1
@@ -211,7 +211,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 428);
+            this.ClientSize = new System.Drawing.Size(844, 428);
             this.ControlBox = false;
             this.Controls.Add(this.btnChoisir);
             this.Controls.Add(this.btnSupprimer);
@@ -232,6 +232,7 @@
             this.Controls.Add(this.dgPatient);
             this.Name = "frmPatient";
             this.Text = "frmPatient";
+            this.Load += new System.EventHandler(this.frmPatient_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgPatient)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
