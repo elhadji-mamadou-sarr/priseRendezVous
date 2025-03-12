@@ -58,10 +58,7 @@ namespace AppGroupe2
             f.WindowState = FormWindowState.Maximized;
         }
 
-        private void frmMDI_Load(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void medecinToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -86,6 +83,11 @@ namespace AppGroupe2
             frmsoin.MdiParent= this;
             frmsoin.Show();
             frmsoin.WindowState = FormWindowState.Maximized;
+        }
+
+        private void btnQuitter_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

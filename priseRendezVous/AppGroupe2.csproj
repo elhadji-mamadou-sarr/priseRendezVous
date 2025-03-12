@@ -146,7 +146,6 @@
     <Compile Include="Model\Secretaire.cs" />
     <Compile Include="Model\SelectListViewModel.cs" />
     <Compile Include="Model\Soin.cs" />
-    <Compile Include="Model\Specialite.cs" />
     <Compile Include="Model\Utilisateur.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

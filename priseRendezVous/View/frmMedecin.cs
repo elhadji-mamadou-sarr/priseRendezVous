@@ -30,7 +30,7 @@ namespace AppGroupe2.View
             m.Email = txtEmail.Text;
             m.NomPrenom=txtNomPrenom.Text;
             m.Tel = txtTelephone.Text;
-            m.IdSpecialite = int.Parse(cbbSpecialite.SelectedValue.ToString());
+            m.Specialite = txtSpecialite.Text;
             m.Identifiant = txtIdentifiant.Text;
             m.Status = false;
             db.Medecins.Add(m);
@@ -44,12 +44,9 @@ namespace AppGroupe2.View
             txtIdentifiant.Text = string.Empty;
             txtNomPrenom.Text = string.Empty;
             txtNumeroOrdreMedecin.Text = string.Empty;
-            cbbSpecialite.SelectedValue = string.Empty;
+            txtSpecialite.Text = string.Empty;
             txtTelephone.Text = string.Empty;
-            cbbSpecialite.DataSource = LoadCbbSpecialite();
-            cbbSpecialite.ValueMember = "Value";
-            cbbSpecialite.DisplayMember = "Text";
-            dgMedecin.DataSource = db.Medecins.Select(a => new {a.IDU,a.Specialite.NomSpecialite, a.Identifiant,a.NomPrenom,a.Email}) .ToList();
+            dgMedecin.DataSource = db.Medecins.Select(a => new {a.IDU,a.Specialite, a.Identifiant,a.NomPrenom,a.Email}) .ToList();
             txtNomPrenom.Focus();
         }
 
@@ -64,7 +61,7 @@ namespace AppGroupe2.View
                 txtIdentifiant.Text = m.Identifiant;
                 txtNomPrenom.Text = m.NomPrenom;
                 txtNumeroOrdreMedecin.Text = m.NumeroOrdre;
-                cbbSpecialite.SelectedValue = m.IdSpecialite;
+                txtSpecialite.Text = m.Specialite; // Correction : Utilisation du champ texte
                 txtTelephone.Text = m.Tel;
 
 
@@ -81,7 +78,7 @@ namespace AppGroupe2.View
             m.Email = txtEmail.Text;
             m.NomPrenom = txtNomPrenom.Text;
             m.Tel = txtTelephone.Text;
-            m.IdSpecialite = int.Parse(cbbSpecialite.SelectedValue.ToString());
+            m.Specialite = txtSpecialite.Text;
             m.Identifiant = txtIdentifiant.Text;
             db.SaveChanges();
             ResetForm();
@@ -117,23 +114,6 @@ namespace AppGroupe2.View
             ResetForm();
         }
 
-        private List<SelectListViewModel> LoadCbbSpecialite()
-        {
-            var m = db.Specialites.ToList();
-            List<SelectListViewModel> liste = new List<SelectListViewModel>();
-            SelectListViewModel b = new SelectListViewModel();
-            b.Text = "Selection....";
-            b.Value = "";
-            liste.Add(b);
-            foreach (var c in m)
-            {
-                SelectListViewModel a = new SelectListViewModel();
-                a.Text = c.NomSpecialite;
-                a.Value = c.IdSpecialite.ToString();
-                liste.Add(a);
-            }
-            return liste;
-        }
         private void btnAgenda_Click(object sender, EventArgs e)
         {
             frmAgenda a = new frmAgenda();

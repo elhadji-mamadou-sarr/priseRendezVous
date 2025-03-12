@@ -29,16 +29,13 @@ namespace AppGroupe2.View
         private void InitializeComponent()
         {
             this.btnChoisir = new System.Windows.Forms.Button();
-            this.dgAgenda = new System.Windows.Forms.DataGridView();
             this.btnSupprimer = new System.Windows.Forms.Button();
             this.btnModifier = new System.Windows.Forms.Button();
             this.btnAjouter = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtLieu = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtHeureFin = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtHeureDebut = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtTitre = new System.Windows.Forms.TextBox();
@@ -48,25 +45,21 @@ namespace AppGroupe2.View
             this.BtnFermer = new System.Windows.Forms.Button();
             this.lblIdMedecin = new System.Windows.Forms.Label();
             this.cbCreneau = new System.Windows.Forms.TextBox();
+            this.txtHeureDebut = new System.Windows.Forms.MaskedTextBox();
+            this.txtHeureFin = new System.Windows.Forms.MaskedTextBox();
+            this.dgAgenda = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgAgenda)).BeginInit();
             this.SuspendLayout();
             // 
             // btnChoisir
             // 
-            this.btnChoisir.Location = new System.Drawing.Point(288, 42);
+            this.btnChoisir.Location = new System.Drawing.Point(288, 12);
             this.btnChoisir.Name = "btnChoisir";
-            this.btnChoisir.Size = new System.Drawing.Size(58, 19);
+            this.btnChoisir.Size = new System.Drawing.Size(65, 24);
             this.btnChoisir.TabIndex = 52;
             this.btnChoisir.Text = "Choisir";
             this.btnChoisir.UseVisualStyleBackColor = true;
-            // 
-            // dgAgenda
-            // 
-            this.dgAgenda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgAgenda.Location = new System.Drawing.Point(288, 71);
-            this.dgAgenda.Name = "dgAgenda";
-            this.dgAgenda.Size = new System.Drawing.Size(616, 417);
-            this.dgAgenda.TabIndex = 51;
+            this.btnChoisir.Click += new System.EventHandler(this.btnChoisir_Click);
             // 
             // btnSupprimer
             // 
@@ -76,6 +69,7 @@ namespace AppGroupe2.View
             this.btnSupprimer.TabIndex = 49;
             this.btnSupprimer.Text = "Supprimer";
             this.btnSupprimer.UseVisualStyleBackColor = true;
+            this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click);
             // 
             // btnModifier
             // 
@@ -121,13 +115,6 @@ namespace AppGroupe2.View
             this.label5.TabIndex = 45;
             this.label5.Text = "Lieu";
             // 
-            // txtHeureFin
-            // 
-            this.txtHeureFin.Location = new System.Drawing.Point(16, 215);
-            this.txtHeureFin.Name = "txtHeureFin";
-            this.txtHeureFin.Size = new System.Drawing.Size(234, 20);
-            this.txtHeureFin.TabIndex = 39;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -136,13 +123,6 @@ namespace AppGroupe2.View
             this.label4.Size = new System.Drawing.Size(50, 13);
             this.label4.TabIndex = 44;
             this.label4.Text = "Heure fin";
-            // 
-            // txtHeureDebut
-            // 
-            this.txtHeureDebut.Location = new System.Drawing.Point(16, 162);
-            this.txtHeureDebut.Name = "txtHeureDebut";
-            this.txtHeureDebut.Size = new System.Drawing.Size(234, 20);
-            this.txtHeureDebut.TabIndex = 38;
             // 
             // label3
             // 
@@ -197,12 +177,13 @@ namespace AppGroupe2.View
             // 
             // BtnFermer
             // 
-            this.BtnFermer.Location = new System.Drawing.Point(846, 12);
+            this.BtnFermer.Location = new System.Drawing.Point(374, 12);
             this.BtnFermer.Name = "BtnFermer";
-            this.BtnFermer.Size = new System.Drawing.Size(58, 19);
+            this.BtnFermer.Size = new System.Drawing.Size(73, 24);
             this.BtnFermer.TabIndex = 55;
             this.BtnFermer.Text = "Fermer";
             this.BtnFermer.UseVisualStyleBackColor = true;
+            this.BtnFermer.Click += new System.EventHandler(this.BtnFermer_Click);
             // 
             // lblIdMedecin
             // 
@@ -219,28 +200,53 @@ namespace AppGroupe2.View
             this.cbCreneau.Size = new System.Drawing.Size(234, 20);
             this.cbCreneau.TabIndex = 57;
             // 
+            // txtHeureDebut
+            // 
+            this.txtHeureDebut.Location = new System.Drawing.Point(16, 162);
+            this.txtHeureDebut.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtHeureDebut.Name = "txtHeureDebut";
+            this.txtHeureDebut.Size = new System.Drawing.Size(234, 20);
+            this.txtHeureDebut.TabIndex = 58;
+            // 
+            // txtHeureFin
+            // 
+            this.txtHeureFin.Location = new System.Drawing.Point(16, 221);
+            this.txtHeureFin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtHeureFin.Name = "txtHeureFin";
+            this.txtHeureFin.Size = new System.Drawing.Size(234, 20);
+            this.txtHeureFin.TabIndex = 59;
+            // 
+            // dgAgenda
+            // 
+            this.dgAgenda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgAgenda.Location = new System.Drawing.Point(309, 56);
+            this.dgAgenda.Name = "dgAgenda";
+            this.dgAgenda.Size = new System.Drawing.Size(465, 369);
+            this.dgAgenda.TabIndex = 60;
+            this.dgAgenda.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgAgenda_CellContentClick);
+            // 
             // frmAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(916, 528);
+            this.ClientSize = new System.Drawing.Size(856, 456);
             this.ControlBox = false;
+            this.Controls.Add(this.dgAgenda);
+            this.Controls.Add(this.txtHeureFin);
+            this.Controls.Add(this.txtHeureDebut);
             this.Controls.Add(this.cbCreneau);
             this.Controls.Add(this.lblIdMedecin);
             this.Controls.Add(this.BtnFermer);
             this.Controls.Add(this.txtDateAgenda);
             this.Controls.Add(this.lblMedecin);
             this.Controls.Add(this.btnChoisir);
-            this.Controls.Add(this.dgAgenda);
             this.Controls.Add(this.btnSupprimer);
             this.Controls.Add(this.btnModifier);
             this.Controls.Add(this.btnAjouter);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtLieu);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtHeureFin);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtHeureDebut);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtTitre);
@@ -257,16 +263,13 @@ namespace AppGroupe2.View
         #endregion
 
         private System.Windows.Forms.Button btnChoisir;
-        private System.Windows.Forms.DataGridView dgAgenda;
         private System.Windows.Forms.Button btnSupprimer;
         private System.Windows.Forms.Button btnModifier;
         private System.Windows.Forms.Button btnAjouter;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtLieu;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtHeureFin;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtHeureDebut;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTitre;
@@ -276,5 +279,8 @@ namespace AppGroupe2.View
         private System.Windows.Forms.Button BtnFermer;
         private System.Windows.Forms.Label lblIdMedecin;
         private System.Windows.Forms.TextBox cbCreneau;
+        private System.Windows.Forms.MaskedTextBox txtHeureDebut;
+        private System.Windows.Forms.MaskedTextBox txtHeureFin;
+        private System.Windows.Forms.DataGridView dgAgenda;
     }
 }

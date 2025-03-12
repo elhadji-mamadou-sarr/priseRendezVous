@@ -44,9 +44,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dtpDateRv = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this.cbCreneaux = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnImprimer = new System.Windows.Forms.Button();
+            this.lbCreneau = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgRendezVous)).BeginInit();
             this.SuspendLayout();
             // 
@@ -93,8 +93,10 @@
             this.dgRendezVous.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgRendezVous.Location = new System.Drawing.Point(401, 194);
             this.dgRendezVous.Name = "dgRendezVous";
+            this.dgRendezVous.RowHeadersWidth = 62;
             this.dgRendezVous.Size = new System.Drawing.Size(373, 233);
             this.dgRendezVous.TabIndex = 42;
+           // this.dgRendezVous.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgRendezVous_CellContentClick);
             // 
             // bntModifier
             // 
@@ -196,19 +198,10 @@
             this.label3.TabIndex = 31;
             this.label3.Text = "Parametrage des rendez-vous";
             // 
-            // cbCreneaux
-            // 
-            this.cbCreneaux.FormattingEnabled = true;
-            this.cbCreneaux.Location = new System.Drawing.Point(10, 400);
-            this.cbCreneaux.Name = "cbCreneaux";
-            this.cbCreneaux.Size = new System.Drawing.Size(140, 21);
-            this.cbCreneaux.TabIndex = 49;
-            this.cbCreneaux.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 384);
+            this.label7.Location = new System.Drawing.Point(21, 135);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 50;
@@ -226,14 +219,24 @@
             this.btnImprimer.UseVisualStyleBackColor = false;
             this.btnImprimer.Click += new System.EventHandler(this.btnImprimer_Click);
             // 
+            // lbCreneau
+            // 
+            this.lbCreneau.FormattingEnabled = true;
+            this.lbCreneau.Location = new System.Drawing.Point(14, 160);
+            this.lbCreneau.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lbCreneau.Name = "lbCreneau";
+            this.lbCreneau.Size = new System.Drawing.Size(119, 264);
+            this.lbCreneau.TabIndex = 51;
+          //  this.lbCreneau.SelectedIndexChanged += new System.EventHandler(this.lbCreneau_SelectedIndexChanged);
+            // 
             // frmRendezVous
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(927, 515);
+            this.ClientSize = new System.Drawing.Size(856, 456);
             this.ControlBox = false;
+            this.Controls.Add(this.lbCreneau);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.cbCreneaux);
             this.Controls.Add(this.btnImprimer);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtStatut);
@@ -253,7 +256,7 @@
             this.Controls.Add(this.label3);
             this.Name = "frmRendezVous";
             this.Text = "RendezVous";
-            this.Load += new System.EventHandler(this.frmRendezVous_Load_1);
+          //  this.Load += new System.EventHandler(this.frmRendezVous_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgRendezVous)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -278,8 +281,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dtpDateRv;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cbCreneaux;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnImprimer;
+        private System.Windows.Forms.ListBox lbCreneau;
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AppGroupe2.Model;
@@ -19,19 +18,12 @@ namespace AppGroupe2.View
         private void frmAgenda_Load(object sender, EventArgs e)
         {
             var m = db.Medecins.Find(idMedecin);
-            lblMedecin.Text = $"N ordre: {m.NumeroOrdre}, Nom prenom: {m.NomPrenom}";
-            lblIdMedecin.Text = m.IDU.ToString();
-            lblIdMedecin.Visible = false;
-
-            // Remplir le ComboBox des créneaux (10 min d'intervalle entre 8h00 et 11h00)
-            //cbCrenau.Items.Clear();
-            //for (int i = 8 * 60; i <= 11 * 60; i += 10)
-            //{
-            //    cbCrenau.Items.Add(TimeSpan.FromMinutes(i).ToString(@"hh\:mm")); // Format correct pour TimeSpan
-
-
-            //}
-            //cbCrenau.SelectedIndex = 0;
+            if (m != null)
+            {
+                lblMedecin.Text = $"N° Ordre: {m.NumeroOrdre}, Nom Prénom: {m.NomPrenom}";
+                lblIdMedecin.Text = m.IDU.ToString();
+                lblIdMedecin.Visible = false;
+            }
 
             ResetForm();
         }
@@ -44,9 +36,9 @@ namespace AppGroupe2.View
 
             // Vérifier si le médecin a déjà un créneau à cette heure
             bool chevauchement = db.Agenda
-     .Any(agenda => agenda.IdMedecin == idMedecin && agenda.DatePlanifier == datePlanifier &&
-                    ((heureDebut.CompareTo(agenda.HeureDebut) >= 0 && heureDebut.CompareTo(agenda.HeureFin) < 0) ||
-                     (heureFin.CompareTo(agenda.HeureDebut) > 0 && heureFin.CompareTo(agenda.HeureFin) <= 0)));
+                .Any(agenda => agenda.IdMedecin == idMedecin && agenda.DatePlanifier == datePlanifier &&
+                              ((heureDebut.CompareTo(agenda.HeureDebut) >= 0 && heureDebut.CompareTo(agenda.HeureFin) < 0) ||
+                               (heureFin.CompareTo(agenda.HeureDebut) > 0 && heureFin.CompareTo(agenda.HeureFin) <= 0)));
 
             if (chevauchement)
             {
@@ -55,6 +47,7 @@ namespace AppGroupe2.View
                 return;
             }
 
+            // Ajout du créneau
             Agenda a = new Agenda
             {
                 Creaneau = cbCreneau.Text,
@@ -70,12 +63,68 @@ namespace AppGroupe2.View
             db.SaveChanges();
 
             MessageBox.Show("Agenda ajouté avec succès.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             ResetForm();
         }
 
         private void ResetForm()
         {
-            dgAgenda.DataSource = db.Agenda.Where(a => a.DatePlanifier >= DateTime.Now && a.IdMedecin == idMedecin).ToList();
+            db = new BdRvMedicalContexe();
+            dgAgenda.DataSource = null;
+            dgAgenda.DataSource = db.Agenda.ToList(); // Affiche tout
+            dgAgenda.Refresh();
+        }
+
+        private void BtnFermer_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dgAgenda_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnSupprimer_Click(object sender, EventArgs e)
+        {
+            if (dgAgenda.SelectedRows.Count > 0)
+            {
+                int idAgenda = Convert.ToInt32(dgAgenda.SelectedRows[0].Cells["IdAgenda"].Value);
+
+                var agenda = db.Agenda.Find(idAgenda);
+                if (agenda != null)
+                {
+                    db.Agenda.Remove(agenda);
+                    db.SaveChanges();
+                    MessageBox.Show("Créneau supprimé avec succès.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ResetForm();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un créneau à supprimer.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnChoisir_Click(object sender, EventArgs e)
+        {
+            if (dgAgenda.CurrentRow == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un créneau.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            txtTitre.Text = dgAgenda.CurrentRow.Cells["Creaneau"].Value.ToString();
+            txtHeureDebut.Text = dgAgenda.CurrentRow.Cells["HeureDebut"].Value.ToString();
+            txtHeureFin.Text = dgAgenda.CurrentRow.Cells["HeureFin"].Value.ToString();
+            txtDateAgenda.Value = Convert.ToDateTime(dgAgenda.CurrentRow.Cells["DatePlanifier"].Value);
+            txtLieu.Text = dgAgenda.CurrentRow.Cells["Lieu"].Value.ToString();
+            cbCreneau.Text = dgAgenda.CurrentRow.Cells["Creaneau"].Value.ToString();
         }
     }
+
 }
+    
+
+    
+

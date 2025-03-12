@@ -14,14 +14,14 @@ namespace AppGroupe2.Model
     {
         [Key]
         public string IdMedecin { get; set; }
-    
-        public int? IdSpecialite { get; set; }
-        [ForeignKey("IdSpecialite")]
-        public virtual Specialite Specialite {  get; set; }
+
+
+        [MaxLength(20)]
+        public string Specialite  {  get; set; }
 
         [MaxLength(10)]
         public string NumeroOrdre { get; set; }
        
-        public virtual ICollection<Agenda> agenda { get; set; }
+        public virtual ICollection<Agenda> agenda { get; set;}
     }
 }

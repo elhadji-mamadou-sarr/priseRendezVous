@@ -26,7 +26,7 @@ namespace AppGroupe2.View
             txtNomPrenom.Text=string.Empty;
             txtAdresse.Text = string.Empty;
             txtEmail.Text=string.Empty;
-            txtGroupeSanguin.Text = string.Empty;
+            cbGroupeSanguin.Text = string.Empty;
             txtPoid.Text = string.Empty;
             txtTaille.Text = string.Empty;
             txtTelephone.Text = string.Empty;
@@ -44,7 +44,7 @@ namespace AppGroupe2.View
             p.Email=txtEmail.Text;
             p.Poids=float.Parse(txtTaille.Text);
             p.Taille = float.Parse(txtTaille.Text);
-            p.GroupSanguin=txtGroupeSanguin.Text;
+            p.GroupSanguin = cbGroupeSanguin.SelectedItem.ToString();
             p.DateNaissance = DateTime.Parse(txtDateNaissance.Text);
             db.Patients.Add(p);
             db.SaveChanges();
@@ -82,17 +82,30 @@ namespace AppGroupe2.View
             dgPatient.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgPatient.EnableHeadersVisualStyles = false;
 
+            ChargerGroupesSanguins();
+
             ResetForm();
+        }
+        private void ChargerGroupesSanguins()
+        {
+            List<string> groupesSanguins = new List<string>
+    {
+        "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"
+    };
+
+            cbGroupeSanguin.DataSource = groupesSanguins;
         }
 
 
         private void btnChoisir_Click(object sender, EventArgs e)
         {
+            Patient p = new Patient();
+
             txtNomPrenom.Text = dgPatient.CurrentRow.Cells[5].Value.ToString();
             txtAdresse.Text= dgPatient.CurrentRow.Cells[6].Value.ToString();
             txtEmail.Text=dgPatient.CurrentRow.Cells [7].Value.ToString();
             txtTelephone.Text = dgPatient.CurrentRow.Cells[8].Value.ToString();
-            txtGroupeSanguin.Text = dgPatient.CurrentRow.Cells[0].Value.ToString() ;
+            p.GroupSanguin = dgPatient.CurrentRow.Cells[0].Value.ToString();
             txtPoid.Text = dgPatient.CurrentRow.Cells[1].Value.ToString();
             txtTaille.Text = dgPatient.CurrentRow.Cells[2].Value.ToString();
             txtDateNaissance.Value = DateTime.TryParse(dgPatient.CurrentRow.Cells[3].Value?.ToString(), out DateTime dateNaissance)
@@ -127,7 +140,7 @@ namespace AppGroupe2.View
                 p.Email = txtEmail.Text;
                 p.Poids = float.Parse(txtPoid.Text);  // Correction : Utilisation de txtPoid au lieu de txtTaille
                 p.Taille = float.Parse(txtTaille.Text);
-                p.GroupSanguin = txtGroupeSanguin.Text;
+                p.GroupSanguin = cbGroupeSanguin.SelectedItem.ToString();
                 db.SaveChanges();
                 ResetForm();
             }
@@ -173,6 +186,16 @@ namespace AppGroupe2.View
 }
 
         private void dgPatient_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txtGroupeSanguin_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbGroupeSanguin_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
