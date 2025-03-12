@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,42 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace priseRendezVous.Model
+namespace AppGroupe2.Model
 {
-    internal class Agenda
+    public class Agenda
     {
-
         [Key]
-        public int IdAgenda {  get; set; }
-        
-        public DateTime DatePlanifie { get; set; }
-
-        [MaxLength(200)]
+        public int IdAgenda { get; set;}
+        public DateTime? DatePlanifier {  get; set;}
         public string Titre { get; set; }
+        public string HeureDebut { get; set; }
+        public string HeureFin { get; set; }
+        public string Creaneau { get; set; } // Renommer "Creaneau" en "DureeCreneau" pour plus de clarté
+        public string lieu { get; set; }
+        public string Statut { get;set; }
 
-        [MaxLength(200)]
-        public string DateDebut { get; set; }
-
-        [MaxLength(200)]
-        public string DateFin { get; set; }
-
-        [MaxLength(10)]
-        public string Creneau { get; set; }
-
-        [MaxLength(200)]
-        public string Lieu { get; set; }
-
-        [MaxLength(10)]
-        public string Statut { get; set; }
-
-        public int? IdMedecin { get; set; }
+        public int IdMedecin { get; set; }
         [ForeignKey("IdMedecin")]
         public Medecin Medecin { get; set; }
-
-        public virtual ICollection<RendezVous> RendezVous { get; set; }
-
+        public virtual ICollection<RendezVous> rendezVous   {get; set;}
 
     }
-
-
 }

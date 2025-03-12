@@ -1,21 +1,27 @@
-﻿using System;
+//using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace priseRendezVous.Model
+namespace AppGroupe2.Model
 {
-    internal class Medecin: Personne
+  
+    public class Medecin: Utilisateur
     {
+        [Key]
+        public string IdMedecin { get; set; }
+    
+        public int? IdSpecialite { get; set; }
+        [ForeignKey("IdSpecialite")]
+        public virtual Specialite Specialite {  get; set; }
 
-        [MaxLength(100)]
-        public string Specialite { get; set; }
-
-        [MaxLength(20)]
+        [MaxLength(10)]
         public string NumeroOrdre { get; set; }
-
-        public virtual ICollection<Agenda> Agenda { get; set; }
+       
+        public virtual ICollection<Agenda> agenda { get; set; }
     }
 }

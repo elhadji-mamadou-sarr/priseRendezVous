@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace AppGroupe2.Model
 {
-    public class Secretaire: Utilisateur
+    public class GroupeSanguin
     {
-        [MaxLength(15)]
-        public string TelephoneFixe { get; set; }
+        [Key]
+        public int IdGroupeSanguin {  get; set; }
+        [Required, MaxLength(3)]
+        public string CodeGroupeSanguin { get; set; }
     }
 }

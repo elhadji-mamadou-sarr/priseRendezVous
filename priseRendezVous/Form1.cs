@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,40 +8,47 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace priseRendezVous
+namespace AppGroupe2
 {
-    public partial class Form1 : Form
+    public partial class frmConnexion : Form
     {
-        public Form1()
+        public frmConnexion()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btneConnecter_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            rfPatient frmPatient = new rfPatient ();
-            frmPatient.Show();
+            frmMDI f = new frmMDI();
+            f.Show();
             this.Hide();
         }
 
-        private void btnFermer_Click(object sender, EventArgs e)
+        private void frmConnexion_Load(object sender, EventArgs e)
         {
-            this.Close();
-        }
+            // Personnalisation de la fenêtre
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Color.White;
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
+            // Styliser les labels
+            txtidentifiant.Font = new Font("Arial", 10, FontStyle.Bold);
+            txtMotDePasse.Font = new Font("Arial", 10, FontStyle.Bold);
 
+            // Styliser le champ utilisateur
+            txtidentifiant.Font = new Font("Arial", 10);
+            txtidentifiant.BorderStyle = BorderStyle.FixedSingle;
+
+            // Styliser le champ mot de passe
+            txtMotDePasse.Font = new Font("Arial", 10);
+            txtMotDePasse.BorderStyle = BorderStyle.FixedSingle;
+            txtMotDePasse.UseSystemPasswordChar = true;
+
+            // Styliser le bouton
+            btneConnecter.BackColor = Color.DarkBlue;
+            btneConnecter.ForeColor = Color.White;
+            btneConnecter.FlatStyle = FlatStyle.Flat;
+            btneConnecter.Cursor = Cursors.Hand;
         }
     }
 }

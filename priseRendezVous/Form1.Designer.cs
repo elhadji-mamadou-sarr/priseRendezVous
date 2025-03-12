@@ -1,6 +1,6 @@
-﻿namespace priseRendezVous
+namespace AppGroupe2
 {
-    partial class Form1
+    partial class frmConnexion
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -29,96 +29,97 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtidentifiant = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.btnSeconnecter = new System.Windows.Forms.Button();
-            this.btnFermer = new System.Windows.Forms.Button();
+            this.btnQuitter = new System.Windows.Forms.Button();
+            this.btneConnecter = new System.Windows.Forms.Button();
+            this.txtMotDePasse = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(119, 36);
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 27.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(75, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(176, 25);
+            this.label1.Size = new System.Drawing.Size(325, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "Authentification";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(97, 117);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(218, 27);
-            this.textBox1.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(94, 101);
+            this.label2.Location = new System.Drawing.Point(81, 68);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Nom d\'utilisateur";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Identifiant";
+            // 
+            // txtidentifiant
+            // 
+            this.txtidentifiant.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.txtidentifiant.Location = new System.Drawing.Point(84, 84);
+            this.txtidentifiant.Name = "txtidentifiant";
+            this.txtidentifiant.Size = new System.Drawing.Size(273, 20);
+            this.txtidentifiant.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(94, 159);
+            this.label3.Location = new System.Drawing.Point(81, 119);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 13);
-            this.label3.TabIndex = 4;
+            this.label3.TabIndex = 3;
             this.label3.Text = "Mot de passe";
             // 
-            // textBox2
+            // btnQuitter
             // 
-            this.textBox2.Location = new System.Drawing.Point(97, 175);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(218, 28);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.btnQuitter.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnQuitter.Location = new System.Drawing.Point(84, 193);
+            this.btnQuitter.Name = "btnQuitter";
+            this.btnQuitter.Size = new System.Drawing.Size(106, 39);
+            this.btnQuitter.TabIndex = 5;
+            this.btnQuitter.Text = "&Quitter";
+            this.btnQuitter.UseVisualStyleBackColor = false;
             // 
-            // btnSeconnecter
+            // btneConnecter
             // 
-            this.btnSeconnecter.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSeconnecter.Location = new System.Drawing.Point(97, 227);
-            this.btnSeconnecter.Name = "btnSeconnecter";
-            this.btnSeconnecter.Size = new System.Drawing.Size(107, 29);
-            this.btnSeconnecter.TabIndex = 5;
-            this.btnSeconnecter.Text = "Se connecter";
-            this.btnSeconnecter.UseVisualStyleBackColor = false;
-            this.btnSeconnecter.Click += new System.EventHandler(this.button1_Click);
+            this.btneConnecter.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btneConnecter.Location = new System.Drawing.Point(241, 193);
+            this.btneConnecter.Name = "btneConnecter";
+            this.btneConnecter.Size = new System.Drawing.Size(116, 39);
+            this.btneConnecter.TabIndex = 6;
+            this.btneConnecter.Text = "&Se connecter";
+            this.btneConnecter.UseVisualStyleBackColor = false;
+            this.btneConnecter.Click += new System.EventHandler(this.btneConnecter_Click);
             // 
-            // btnFermer
+            // txtMotDePasse
             // 
-            this.btnFermer.Location = new System.Drawing.Point(225, 227);
-            this.btnFermer.Name = "btnFermer";
-            this.btnFermer.Size = new System.Drawing.Size(90, 29);
-            this.btnFermer.TabIndex = 6;
-            this.btnFermer.Text = "Fermer";
-            this.btnFermer.UseVisualStyleBackColor = true;
-            this.btnFermer.Click += new System.EventHandler(this.btnFermer_Click);
+            this.txtMotDePasse.Location = new System.Drawing.Point(84, 135);
+            this.txtMotDePasse.Name = "txtMotDePasse";
+            this.txtMotDePasse.Size = new System.Drawing.Size(273, 20);
+            this.txtMotDePasse.TabIndex = 7;
+            this.txtMotDePasse.UseSystemPasswordChar = true;
             // 
-            // Form1
+            // frmConnexion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 422);
-            this.Controls.Add(this.btnFermer);
-            this.Controls.Add(this.btnSeconnecter);
+            this.BackColor = System.Drawing.Color.LightGray;
+            this.ClientSize = new System.Drawing.Size(484, 311);
+            this.ControlBox = false;
+            this.Controls.Add(this.txtMotDePasse);
+            this.Controls.Add(this.btneConnecter);
+            this.Controls.Add(this.btnQuitter);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtidentifiant);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
-            this.Text = "Authentification";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "frmConnexion";
+            this.Text = "Connexion";
+            this.Load += new System.EventHandler(this.frmConnexion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,12 +128,12 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtidentifiant;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button btnSeconnecter;
-        private System.Windows.Forms.Button btnFermer;
+        private System.Windows.Forms.Button btnQuitter;
+        private System.Windows.Forms.Button btneConnecter;
+        private System.Windows.Forms.TextBox txtMotDePasse;
     }
 }
 

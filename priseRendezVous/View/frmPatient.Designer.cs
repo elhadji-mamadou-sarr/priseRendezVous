@@ -1,4 +1,4 @@
-﻿namespace priseRendezVous.View
+﻿namespace AppGroupe2.View
 {
     partial class frmPatient
     {
@@ -31,208 +31,234 @@
             this.dgPatient = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtNomPrenom = new System.Windows.Forms.TextBox();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtTel = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtGroupSanguin = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtPoids = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtAdresse = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtTelephone = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtGroupeSanguin = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtPoid = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.txtTaille = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnAjouter = new System.Windows.Forms.Button();
-            this.bntModifier = new System.Windows.Forms.Button();
+            this.btnModifier = new System.Windows.Forms.Button();
             this.btnSupprimer = new System.Windows.Forms.Button();
             this.btnChoisir = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtDateNaissance = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgPatient)).BeginInit();
             this.SuspendLayout();
             // 
             // dgPatient
             // 
             this.dgPatient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgPatient.Location = new System.Drawing.Point(299, 79);
+            this.dgPatient.Location = new System.Drawing.Point(313, 33);
             this.dgPatient.Name = "dgPatient";
-            this.dgPatient.Size = new System.Drawing.Size(548, 337);
+            this.dgPatient.Size = new System.Drawing.Size(633, 421);
             this.dgPatient.TabIndex = 0;
+            this.dgPatient.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgPatient_CellContentClick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 52);
+            this.label1.Location = new System.Drawing.Point(2, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Nom et Prenom";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Text = "Nom prenom";
             // 
             // txtNomPrenom
             // 
-            this.txtNomPrenom.Location = new System.Drawing.Point(29, 68);
-            this.txtNomPrenom.Multiline = true;
+            this.txtNomPrenom.Location = new System.Drawing.Point(5, 25);
             this.txtNomPrenom.Name = "txtNomPrenom";
-            this.txtNomPrenom.Size = new System.Drawing.Size(249, 26);
+            this.txtNomPrenom.Size = new System.Drawing.Size(234, 20);
             this.txtNomPrenom.TabIndex = 1;
             // 
-            // txtEmail
+            // txtAdresse
             // 
-            this.txtEmail.Location = new System.Drawing.Point(29, 174);
-            this.txtEmail.Multiline = true;
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(249, 24);
-            this.txtEmail.TabIndex = 3;
+            this.txtAdresse.Location = new System.Drawing.Point(5, 78);
+            this.txtAdresse.Name = "txtAdresse";
+            this.txtAdresse.Size = new System.Drawing.Size(234, 20);
+            this.txtAdresse.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 158);
+            this.label2.Location = new System.Drawing.Point(2, 62);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
+            this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Email";
+            this.label2.Text = "Adresse";
             // 
-            // txtTel
+            // txtEmail
             // 
-            this.txtTel.Location = new System.Drawing.Point(29, 227);
-            this.txtTel.Multiline = true;
-            this.txtTel.Name = "txtTel";
-            this.txtTel.Size = new System.Drawing.Size(249, 27);
-            this.txtTel.TabIndex = 4;
+            this.txtEmail.Location = new System.Drawing.Point(5, 131);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(234, 20);
+            this.txtEmail.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 211);
+            this.label3.Location = new System.Drawing.Point(2, 115);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Telephone";
+            this.label3.Text = "Email";
             // 
-            // txtGroupSanguin
+            // txtTelephone
             // 
-            this.txtGroupSanguin.Location = new System.Drawing.Point(29, 280);
-            this.txtGroupSanguin.Multiline = true;
-            this.txtGroupSanguin.Name = "txtGroupSanguin";
-            this.txtGroupSanguin.Size = new System.Drawing.Size(249, 27);
-            this.txtGroupSanguin.TabIndex = 5;
+            this.txtTelephone.Location = new System.Drawing.Point(5, 184);
+            this.txtTelephone.Name = "txtTelephone";
+            this.txtTelephone.Size = new System.Drawing.Size(234, 20);
+            this.txtTelephone.TabIndex = 4;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 264);
+            this.label4.Location = new System.Drawing.Point(2, 168);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 13);
+            this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Groupe Sanguin";
+            this.label4.Text = "Telephone";
             // 
-            // txtPoids
+            // txtGroupeSanguin
             // 
-            this.txtPoids.Location = new System.Drawing.Point(29, 333);
-            this.txtPoids.Multiline = true;
-            this.txtPoids.Name = "txtPoids";
-            this.txtPoids.Size = new System.Drawing.Size(249, 27);
-            this.txtPoids.TabIndex = 6;
+            this.txtGroupeSanguin.Location = new System.Drawing.Point(5, 237);
+            this.txtGroupeSanguin.Name = "txtGroupeSanguin";
+            this.txtGroupeSanguin.Size = new System.Drawing.Size(234, 20);
+            this.txtGroupeSanguin.TabIndex = 5;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 317);
+            this.label5.Location = new System.Drawing.Point(2, 221);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(33, 13);
+            this.label5.Size = new System.Drawing.Size(82, 13);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Poids";
+            this.label5.Text = "Groupe sanguin";
             // 
-            // txtAdresse
+            // txtPoid
             // 
-            this.txtAdresse.Location = new System.Drawing.Point(29, 121);
-            this.txtAdresse.Multiline = true;
-            this.txtAdresse.Name = "txtAdresse";
-            this.txtAdresse.Size = new System.Drawing.Size(249, 24);
-            this.txtAdresse.TabIndex = 2;
+            this.txtPoid.Location = new System.Drawing.Point(5, 290);
+            this.txtPoid.Name = "txtPoid";
+            this.txtPoid.Size = new System.Drawing.Size(234, 20);
+            this.txtPoid.TabIndex = 6;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(26, 105);
+            this.label6.Location = new System.Drawing.Point(2, 274);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 13);
+            this.label6.Size = new System.Drawing.Size(28, 13);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Adresse";
+            this.label6.Text = "Poid";
+            // 
+            // txtTaille
+            // 
+            this.txtTaille.Location = new System.Drawing.Point(5, 343);
+            this.txtTaille.Name = "txtTaille";
+            this.txtTaille.Size = new System.Drawing.Size(234, 20);
+            this.txtTaille.TabIndex = 7;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(2, 327);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Taille";
             // 
             // btnAjouter
             // 
-            this.btnAjouter.BackColor = System.Drawing.Color.SlateGray;
-            this.btnAjouter.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnAjouter.Location = new System.Drawing.Point(29, 378);
+            this.btnAjouter.Location = new System.Drawing.Point(5, 448);
             this.btnAjouter.Name = "btnAjouter";
-            this.btnAjouter.Size = new System.Drawing.Size(81, 27);
-            this.btnAjouter.TabIndex = 7;
+            this.btnAjouter.Size = new System.Drawing.Size(75, 23);
+            this.btnAjouter.TabIndex = 9;
             this.btnAjouter.Text = "Ajouter";
-            this.btnAjouter.UseVisualStyleBackColor = false;
+            this.btnAjouter.UseVisualStyleBackColor = true;
             this.btnAjouter.Click += new System.EventHandler(this.btnAjouter_Click);
             // 
-            // bntModifier
+            // btnModifier
             // 
-            this.bntModifier.BackColor = System.Drawing.SystemColors.Highlight;
-            this.bntModifier.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.bntModifier.Location = new System.Drawing.Point(113, 378);
-            this.bntModifier.Name = "bntModifier";
-            this.bntModifier.Size = new System.Drawing.Size(81, 27);
-            this.bntModifier.TabIndex = 9;
-            this.bntModifier.Text = "Modifier";
-            this.bntModifier.UseVisualStyleBackColor = false;
-            this.bntModifier.Click += new System.EventHandler(this.bntModifier_Click);
+            this.btnModifier.Location = new System.Drawing.Point(86, 448);
+            this.btnModifier.Name = "btnModifier";
+            this.btnModifier.Size = new System.Drawing.Size(75, 23);
+            this.btnModifier.TabIndex = 10;
+            this.btnModifier.Text = "Modifier";
+            this.btnModifier.UseVisualStyleBackColor = true;
+            this.btnModifier.Click += new System.EventHandler(this.btnModifier_Click);
             // 
             // btnSupprimer
             // 
-            this.btnSupprimer.BackColor = System.Drawing.Color.IndianRed;
-            this.btnSupprimer.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSupprimer.Location = new System.Drawing.Point(197, 378);
+            this.btnSupprimer.Location = new System.Drawing.Point(167, 448);
             this.btnSupprimer.Name = "btnSupprimer";
-            this.btnSupprimer.Size = new System.Drawing.Size(81, 27);
-            this.btnSupprimer.TabIndex = 10;
+            this.btnSupprimer.Size = new System.Drawing.Size(75, 23);
+            this.btnSupprimer.TabIndex = 11;
             this.btnSupprimer.Text = "Supprimer";
-            this.btnSupprimer.UseVisualStyleBackColor = false;
+            this.btnSupprimer.UseVisualStyleBackColor = true;
             this.btnSupprimer.Click += new System.EventHandler(this.btnSupprimer_Click);
             // 
             // btnChoisir
             // 
-            this.btnChoisir.BackColor = System.Drawing.Color.SlateGray;
-            this.btnChoisir.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnChoisir.Location = new System.Drawing.Point(299, 35);
+            this.btnChoisir.Location = new System.Drawing.Point(313, 4);
             this.btnChoisir.Name = "btnChoisir";
-            this.btnChoisir.Size = new System.Drawing.Size(81, 27);
+            this.btnChoisir.Size = new System.Drawing.Size(75, 23);
             this.btnChoisir.TabIndex = 8;
             this.btnChoisir.Text = "Choisir";
-            this.btnChoisir.UseVisualStyleBackColor = false;
+            this.btnChoisir.UseVisualStyleBackColor = true;
             this.btnChoisir.Click += new System.EventHandler(this.btnChoisir_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(2, 387);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(83, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Date Naissance";
+            // 
+            // txtDateNaissance
+            // 
+            this.txtDateNaissance.Location = new System.Drawing.Point(5, 403);
+            this.txtDateNaissance.Name = "txtDateNaissance";
+            this.txtDateNaissance.Size = new System.Drawing.Size(234, 20);
+            this.txtDateNaissance.TabIndex = 16;
             // 
             // frmPatient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 428);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.ControlBox = false;
+            this.Controls.Add(this.txtDateNaissance);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.btnChoisir);
             this.Controls.Add(this.btnSupprimer);
-            this.Controls.Add(this.bntModifier);
+            this.Controls.Add(this.btnModifier);
             this.Controls.Add(this.btnAjouter);
-            this.Controls.Add(this.txtAdresse);
+            this.Controls.Add(this.txtTaille);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.txtPoid);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtPoids);
+            this.Controls.Add(this.txtGroupeSanguin);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtGroupSanguin);
+            this.Controls.Add(this.txtTelephone);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtTel);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtAdresse);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtNomPrenom);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgPatient);
             this.Name = "frmPatient";
-            this.Text = "frmPatient";
-            this.Load += new System.EventHandler(this.frmPatient_Load_1);
+            this.Text = "Patient";
+            this.Load += new System.EventHandler(this.frmPatient_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgPatient)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -244,19 +270,23 @@
         private System.Windows.Forms.DataGridView dgPatient;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNomPrenom;
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtTel;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtGroupSanguin;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtPoids;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtAdresse;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtTelephone;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtGroupeSanguin;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtPoid;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtTaille;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnAjouter;
-        private System.Windows.Forms.Button bntModifier;
+        private System.Windows.Forms.Button btnModifier;
         private System.Windows.Forms.Button btnSupprimer;
         private System.Windows.Forms.Button btnChoisir;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DateTimePicker txtDateNaissance;
     }
 }

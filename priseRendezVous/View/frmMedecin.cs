@@ -1,4 +1,6 @@
-﻿using System;
+//using AppGroupe2.Migrations;
+using AppGroupe2.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,96 +9,141 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using priseRendezVous.Model;
+using BdRvMedicalContexe = AppGroupe2.Model.BdRvMedicalContexe;
 
-namespace priseRendezVous.View
+namespace AppGroupe2.View
 {
     public partial class frmMedecin : Form
+       
     {
+        BdRvMedicalContexe db=new BdRvMedicalContexe();
         public frmMedecin()
         {
             InitializeComponent();
-            this.Load += new EventHandler(frmMedecin_Load);
-        }
-
-
-        BdRvMedicalContext db = new BdRvMedicalContext();
-
-        private void frmMedecin_Load(object sender, EventArgs e)
-        {
-            ResetForm();
-            dgMedecin.DataSource = db.Medecins.ToList();
-        }
-
-        public void ResetForm()
-        {
-            txtNomPrenom.Text = string.Empty;
-            txtEmail.Text = string.Empty;
-            txtAdresse.Text = string.Empty;
-            txtTel.Text = string.Empty;
-            txtSpecialite.Text = string.Empty;
-            txtNumOrdre.Text = string.Empty;
-
-            dgMedecin.DataSource = db.Medecins.ToList();
         }
 
         private void btnAjouter_Click(object sender, EventArgs e)
         {
-            Medecin medecin = new Medecin();
-
-            medecin.NomPrenom = txtNomPrenom.Text;
-            medecin.Adresse = txtAdresse.Text;
-            medecin.Tel = txtTel.Text;
-            medecin.Email = txtEmail.Text;
-            medecin.NumeroOrdre = txtNumOrdre.Text;
-            medecin.Specialite = txtSpecialite.Text;
-            db.Medecins.Add(medecin);
+            Medecin m = new Medecin();
+            m.Adresse = txtAdresse.Text;
+            m.NumeroOrdre = txtNumeroOrdreMedecin.Text;
+            m.Email = txtEmail.Text;
+            m.NomPrenom=txtNomPrenom.Text;
+            m.Tel = txtTelephone.Text;
+            m.IdSpecialite = int.Parse(cbbSpecialite.SelectedValue.ToString());
+            m.Identifiant = txtIdentifiant.Text;
+            m.Status = false;
+            db.Medecins.Add(m);
             db.SaveChanges();
             ResetForm();
-
         }
-
-        private void bntModifier_Click(object sender, EventArgs e)
+        private void ResetForm()
         {
-            int? id = int.Parse(dgMedecin.CurrentRow.Cells[3].Value.ToString());
-            if (id.HasValue)
-            {
-                var medecin = db.Medecins.Find(id);
-
-                medecin.NomPrenom = txtNomPrenom.Text;
-                medecin.Adresse = txtAdresse.Text;
-                medecin.Tel = txtTel.Text;
-                medecin.Email = txtEmail.Text;
-                medecin.NumeroOrdre = txtNumOrdre.Text;
-                medecin.Specialite = txtSpecialite.Text;
-                db.SaveChanges();
-                ResetForm();
-            }
+            txtAdresse.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtIdentifiant.Text = string.Empty;
+            txtNomPrenom.Text = string.Empty;
+            txtNumeroOrdreMedecin.Text = string.Empty;
+            cbbSpecialite.SelectedValue = string.Empty;
+            txtTelephone.Text = string.Empty;
+            cbbSpecialite.DataSource = LoadCbbSpecialite();
+            cbbSpecialite.ValueMember = "Value";
+            cbbSpecialite.DisplayMember = "Text";
+            dgMedecin.DataSource = db.Medecins.Select(a => new {a.IDU,a.Specialite.NomSpecialite, a.Identifiant,a.NomPrenom,a.Email}) .ToList();
+            txtNomPrenom.Focus();
         }
 
         private void btnChoisir_Click(object sender, EventArgs e)
         {
-            txtNomPrenom.Text = dgMedecin.CurrentRow.Cells[4].Value.ToString();
-            txtAdresse.Text = dgMedecin.CurrentRow.Cells[7].Value.ToString();
-            txtEmail.Text = dgMedecin.CurrentRow.Cells[6].Value.ToString();
-            txtTel.Text = dgMedecin.CurrentRow.Cells[5].Value.ToString();
-            txtSpecialite.Text = dgMedecin.CurrentRow.Cells[0].Value.ToString();
-            txtNumOrdre.Text = dgMedecin.CurrentRow.Cells[1].Value.ToString();
+            int? id = int.Parse(dgMedecin.CurrentRow.Cells[0].Value.ToString());
+            var m = db.Medecins.Find(id);
+            if(m!= null)
+            {
+                txtAdresse.Text = m.Adresse;
+                txtEmail.Text = m.Email;
+                txtIdentifiant.Text = m.Identifiant;
+                txtNomPrenom.Text = m.NomPrenom;
+                txtNumeroOrdreMedecin.Text = m.NumeroOrdre;
+                cbbSpecialite.SelectedValue = m.IdSpecialite;
+                txtTelephone.Text = m.Tel;
 
+
+
+            }
+        }
+
+        private void btnModifier_Click(object sender, EventArgs e)
+        {
+            int? id = int.Parse(dgMedecin.CurrentRow.Cells[0].Value.ToString());
+            var m = db.Medecins.Find(id);
+            m.Adresse = txtAdresse.Text;
+            m.NumeroOrdre = txtNumeroOrdreMedecin.Text;
+            m.Email = txtEmail.Text;
+            m.NomPrenom = txtNomPrenom.Text;
+            m.Tel = txtTelephone.Text;
+            m.IdSpecialite = int.Parse(cbbSpecialite.SelectedValue.ToString());
+            m.Identifiant = txtIdentifiant.Text;
+            db.SaveChanges();
+            ResetForm();
         }
 
         private void btnSupprimer_Click(object sender, EventArgs e)
         {
-            int? id = int.Parse(dgMedecin.CurrentRow.Cells[3].Value.ToString());
-            if (id.HasValue)
+            int? id = int.Parse(dgMedecin.CurrentRow.Cells[0].Value.ToString());
+            var medecin = db.Medecins.Find(id);
+
+            if (medecin == null)
             {
-                var medecin = db.Medecins.Find(id);
-                db.Medecins.Remove(medecin);
-                ResetForm();
-                db.SaveChanges();
+                MessageBox.Show("Médecin introuvable.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            // Vérifier si le médecin a des rendez-vous
+            bool hasRendezVous = db.RendezVous.Any(r => r.IdMedecin == id);
+            if (hasRendezVous)
+            {
+                MessageBox.Show("Impossible de supprimer ce médecin car il a des rendez-vous enregistrés.", "Suppression impossible", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            db.Medecins.Remove(medecin);
+            db.SaveChanges();
+            MessageBox.Show("Médecin supprimé avec succès.", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ResetForm();
         }
 
-    }
+        private void frmMedecin_Load(object sender, EventArgs e)
+        {
+            ResetForm();
+        }
 
+        private List<SelectListViewModel> LoadCbbSpecialite()
+        {
+            var m = db.Specialites.ToList();
+            List<SelectListViewModel> liste = new List<SelectListViewModel>();
+            SelectListViewModel b = new SelectListViewModel();
+            b.Text = "Selection....";
+            b.Value = "";
+            liste.Add(b);
+            foreach (var c in m)
+            {
+                SelectListViewModel a = new SelectListViewModel();
+                a.Text = c.NomSpecialite;
+                a.Value = c.IdSpecialite.ToString();
+                liste.Add(a);
+            }
+            return liste;
+        }
+        private void btnAgenda_Click(object sender, EventArgs e)
+        {
+            frmAgenda a = new frmAgenda();
+            a.idMedecin = int.Parse(dgMedecin.CurrentRow.Cells[0].Value.ToString());
+            a.Show();
+        }
+
+        private void dgMedecin_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+    }
 }

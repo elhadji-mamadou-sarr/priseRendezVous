@@ -9,12 +9,13 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>priseRendezVous</RootNamespace>
     <AssemblyName>priseRendezVous</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,6 +45,9 @@
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.Cryptography.2.3.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -65,6 +69,7 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MySql.Data, Version=9.2.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.9.2.0\lib\net48\MySql.Data.dll</HintPath>
     </Reference>
@@ -123,24 +128,42 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Agenda.cs" />
-    <Compile Include="Model\BdRvMedicalContext.cs" />
-    <Compile Include="Model\Medecin.cs" />
-    <Compile Include="Model\MoyenPaiement.cs" />
-    <Compile Include="Model\Patient.cs" />
-    <Compile Include="Model\RendezVous.cs" />
-    <Compile Include="Model\Secretaire.cs" />
-    <Compile Include="Model\Soin.cs" />
-    <Compile Include="Model\Utilisateur.cs" />
-    <Compile Include="Personne.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="rfPatient.cs">
+    <Compile Include="frmMDI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="rfPatient.Designer.cs">
-      <DependentUpon>rfPatient.cs</DependentUpon>
+    <Compile Include="frmMDI.Designer.cs">
+      <DependentUpon>frmMDI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Agenda.cs" />
+    <Compile Include="Model\BdRvMedicalContexe.cs" />
+    <Compile Include="Model\ClassReportTicketRv.cs" />
+    <Compile Include="Model\GroupeSanguin.cs" />
+    <Compile Include="Model\Medecin.cs" />
+    <Compile Include="Model\Patient.cs" />
+    <Compile Include="Model\Personne.cs" />
+    <Compile Include="Model\RendezVous.cs" />
+    <Compile Include="Model\Secretaire.cs" />
+    <Compile Include="Model\SelectListViewModel.cs" />
+    <Compile Include="Model\Soin.cs" />
+    <Compile Include="Model\Specialite.cs" />
+    <Compile Include="Model\Utilisateur.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="report\rptTicketRV.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="report\rptTicketRV1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTicketRV.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\frmAgenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmAgenda.Designer.cs">
+      <DependentUpon>frmAgenda.cs</DependentUpon>
     </Compile>
     <Compile Include="View\frmMedecin.cs">
       <SubType>Form</SubType>
@@ -153,6 +176,12 @@
     </Compile>
     <Compile Include="View\frmPatient.Designer.cs">
       <DependentUpon>frmPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\frmPrintTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmPrintTicket.Designer.cs">
+      <DependentUpon>frmPrintTicket.cs</DependentUpon>
     </Compile>
     <Compile Include="View\frmRendezVous.cs">
       <SubType>Form</SubType>
@@ -169,6 +198,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmMDI.resx">
+      <DependentUpon>frmMDI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -177,15 +209,23 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="rfPatient.resx">
-      <DependentUpon>rfPatient.cs</DependentUpon>
+    <EmbeddedResource Include="report\rptTicketRV.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTicketRV1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmAgenda.resx">
+      <DependentUpon>frmAgenda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmMedecin.resx">
       <DependentUpon>frmMedecin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmPatient.resx">
       <DependentUpon>frmPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmPrintTicket.resx">
+      <DependentUpon>frmPrintTicket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmRendezVous.resx">
       <DependentUpon>frmRendezVous.cs</DependentUpon>
@@ -206,6 +246,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

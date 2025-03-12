@@ -1,21 +1,21 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace priseRendezVous.Model
+namespace AppGroupe2.Model
 {
-    internal class Utilisateur:Personne
+    public class Utilisateur:Personne
     {
+        [Key]
+        public int IdUtilisateur { get; set; }
         [MaxLength(20)]
         public string Identifiant { get; set; }
-
-        [MaxLength(100)]
+        [MaxLength(250)]
         public string MotDePasse { get; set; }
-
-        public bool Statut { get; set; }
+        public bool Status {  get; set; }
 
     }
 }

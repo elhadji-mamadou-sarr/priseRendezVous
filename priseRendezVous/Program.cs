@@ -1,11 +1,12 @@
-﻿using System;
+using AppGroupe2.View;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using priseRendezVous.Model;
 
-namespace priseRendezVous
+namespace AppGroupe2
 {
     internal static class Program
     {
@@ -17,13 +18,7 @@ namespace priseRendezVous
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-
-            using (var context = new BdRvMedicalContext())
-            {
-                // 'utilisation du contexte
-                Console.WriteLine("Connexion à la base de données réussie !");
-            }
+            Application.Run(new frmConnexion());
         }
     }
 }

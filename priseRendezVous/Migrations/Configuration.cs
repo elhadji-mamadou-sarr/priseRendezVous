@@ -1,19 +1,18 @@
-﻿namespace priseRendezVous.Migrations
+namespace priseRendezVous.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<priseRendezVous.Model.BdRvMedicalContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AppGroupe2.Model.BdRvMedicalContexe>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(priseRendezVous.Model.BdRvMedicalContext context)
+        protected override void Seed(AppGroupe2.Model.BdRvMedicalContexe context)
         {
             //  This method will be called after migrating to the latest version.
 

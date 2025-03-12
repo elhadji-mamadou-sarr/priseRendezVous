@@ -1,24 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace priseRendezVous.Model
+namespace AppGroupe2.Model
 {
-    internal class Patient : Personne
+    public class Patient: Personne
     {
-
         [Required, MaxLength(3)]
-        public string GroupeSanguin { get; set; }
-
+        public string GroupSanguin { get; set; }
         [Required]
         public float? Poids { get; set; }
-
-        public virtual ICollection<Soin> Soins { get; set; }
-
-        public virtual ICollection<RendezVous> RendezVous { get; set; }
-
+        [Required]
+        public float? Taille { get; set; }
+        public DateTime? DateNaissance { get; set; }
     }
 }

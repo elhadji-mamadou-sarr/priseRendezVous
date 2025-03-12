@@ -1,4 +1,5 @@
-﻿using System;
+using AppGroupe2.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,9 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using priseRendezVous.Model;
 
-namespace priseRendezVous.View
+namespace AppGroupe2.View
 {
     public partial class frmSoin : Form
     {
@@ -18,14 +18,13 @@ namespace priseRendezVous.View
             InitializeComponent();
             this.Load += new EventHandler(frmSoin_Load);
         }
-
-        BdRvMedicalContext db = new BdRvMedicalContext();
+        BdRvMedicalContexe db = new BdRvMedicalContexe();
 
         private void frmSoin_Load(object sender, EventArgs e)
         {
 
             ResetForm();
-            dgSoin.DataSource = db.soins.ToList();
+            dgSoin.DataSource = db.Soins.ToList();
         }
 
         public void ResetForm()
@@ -33,9 +32,8 @@ namespace priseRendezVous.View
             txtLibelle.Text = string.Empty;
             txtCout.Text = string.Empty;
 
-            dgSoin.DataSource = db.soins.ToList();
+            dgSoin.DataSource = db.Soins.ToList();
         }
-
 
         private void btnAjouter_Click(object sender, EventArgs e)
         {
@@ -43,7 +41,7 @@ namespace priseRendezVous.View
 
             s.libelle = txtLibelle.Text;
             s.cout = float.Parse(txtCout.Text);
-            db.soins.Add(s);
+            db.Soins.Add(s);
             db.SaveChanges();
             ResetForm();
         }
@@ -54,7 +52,7 @@ namespace priseRendezVous.View
             int? id = int.Parse(dgSoin.CurrentRow.Cells[0].Value.ToString());
             if (id.HasValue)
             {
-                var s = db.soins.Find(id);
+                var s = db.Soins.Find(id);
 
                 s.libelle = txtLibelle.Text;
                 s.cout = float.Parse(txtCout.Text);
@@ -74,11 +72,16 @@ namespace priseRendezVous.View
             int? id = int.Parse(dgSoin.CurrentRow.Cells[0].Value.ToString());
             if (id.HasValue)
             {
-                var s = db.soins.Find(id);
-                db.soins.Remove(s);
+                var s = db.Soins.Find(id);
+                db.Soins.Remove(s);
                 ResetForm();
                 db.SaveChanges();
             }
+        }
+
+        private void frmSoin_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
