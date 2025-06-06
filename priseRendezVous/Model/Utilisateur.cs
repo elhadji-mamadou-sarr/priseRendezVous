@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace priseRendezVous.Model
 {
-    internal class Utilisateur:Personne
+    public class Utilisateur:Personne
     {
         [MaxLength(20)]
         public string Identifiant { get; set; }

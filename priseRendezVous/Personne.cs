@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace priseRendezVous
 {
-    internal class Personne
+    public class Personne
     {
         [Key]
         public int idU { get; set; }

@@ -30,7 +30,9 @@ namespace priseRendezVous.Model
 
         public DbSet<Soin> soins { get; set; }
 
+        public DbSet<Role> roles { get; set; }
 
+        public DbSet<Admin> Admins { get; set; }
 
 
     }

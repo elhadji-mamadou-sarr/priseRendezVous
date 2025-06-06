@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxIdentifiant = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxMotDePasse = new System.Windows.Forms.TextBox();
             this.btnSeconnecter = new System.Windows.Forms.Button();
             this.btnFermer = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -48,13 +48,13 @@
             this.label1.Text = "Authentification";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox1
+            // textBoxIdentifiant
             // 
-            this.textBox1.Location = new System.Drawing.Point(97, 117);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(218, 27);
-            this.textBox1.TabIndex = 1;
+            this.textBoxIdentifiant.Location = new System.Drawing.Point(97, 117);
+            this.textBoxIdentifiant.Multiline = true;
+            this.textBoxIdentifiant.Name = "textBoxIdentifiant";
+            this.textBoxIdentifiant.Size = new System.Drawing.Size(218, 27);
+            this.textBoxIdentifiant.TabIndex = 1;
             // 
             // label2
             // 
@@ -75,14 +75,14 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Mot de passe";
             // 
-            // textBox2
+            // textBoxMotDePasse
             // 
-            this.textBox2.Location = new System.Drawing.Point(97, 175);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(218, 28);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBoxMotDePasse.Location = new System.Drawing.Point(97, 175);
+            this.textBoxMotDePasse.Multiline = true;
+            this.textBoxMotDePasse.Name = "textBoxMotDePasse";
+            this.textBoxMotDePasse.Size = new System.Drawing.Size(218, 28);
+            this.textBoxMotDePasse.TabIndex = 3;
+            this.textBoxMotDePasse.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // btnSeconnecter
             // 
@@ -113,12 +113,13 @@
             this.Controls.Add(this.btnFermer);
             this.Controls.Add(this.btnSeconnecter);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBoxMotDePasse);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxIdentifiant);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Authentification";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,10 +128,10 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxIdentifiant;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxMotDePasse;
         private System.Windows.Forms.Button btnSeconnecter;
         private System.Windows.Forms.Button btnFermer;
     }

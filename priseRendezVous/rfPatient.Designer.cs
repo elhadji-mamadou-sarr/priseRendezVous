@@ -39,6 +39,7 @@
             this.agendaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
             this.btnQuitter = new System.Windows.Forms.Button();
+            this.quiterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +47,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.patientToolStripMenuItem,
-            this.parametresToolStripMenuItem});
+            this.parametresToolStripMenuItem,
+            this.quiterToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(698, 24);
@@ -128,9 +130,16 @@
             this.btnQuitter.Name = "btnQuitter";
             this.btnQuitter.Size = new System.Drawing.Size(97, 24);
             this.btnQuitter.TabIndex = 3;
-            this.btnQuitter.Text = "Quitter";
+            this.btnQuitter.Text = "Se deconnecter";
             this.btnQuitter.UseVisualStyleBackColor = true;
             this.btnQuitter.Click += new System.EventHandler(this.btnQuitter_Click);
+            // 
+            // quiterToolStripMenuItem
+            // 
+            this.quiterToolStripMenuItem.Name = "quiterToolStripMenuItem";
+            this.quiterToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.quiterToolStripMenuItem.Text = "Quiter";
+            this.quiterToolStripMenuItem.Click += new System.EventHandler(this.quiterToolStripMenuItem_Click);
             // 
             // rfPatient
             // 
@@ -163,5 +172,6 @@
         private System.Windows.Forms.Button btnQuitter;
         private System.Windows.Forms.ToolStripMenuItem rendezVousToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem agendaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quiterToolStripMenuItem;
     }
 }

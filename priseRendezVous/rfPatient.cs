@@ -70,7 +70,7 @@ namespace priseRendezVous
         {
             // Afficher une boîte de dialogue de confirmation
             DialogResult result = MessageBox.Show(
-                "Voulez-vous vraiment quitter le programme ?", // Message
+                "Voulez-vous vraiment vous deconnecter ?", // Message
                 "Confirmation", // Titre de la boîte de dialogue
                 MessageBoxButtons.OKCancel, // Boutons : OK (Quitter) et Annuler
                 MessageBoxIcon.Question // Icône de question
@@ -79,10 +79,12 @@ namespace priseRendezVous
             // Vérifier la réponse de l'utilisateur
             if (result == DialogResult.OK)
             {
-                // Si l'utilisateur clique sur "Quitter", fermer l'application
-                Application.Exit();
+                Form1 connection = new Form1();
+                connection.MdiParent = this;
+                connection.Show();
+                this.Close();
+                //Application.Exit();
             }
-            // Sinon, ne rien faire (la boîte de dialogue se ferme et le programme continue)
         }
 
         private void rendezvousToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,6 +109,22 @@ namespace priseRendezVous
             frmRendezVous.MdiParent = this;
             frmRendezVous.Show();
             frmRendezVous.WindowState = FormWindowState.Maximized;
+        }
+
+        private void quiterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Voulez-vous vraiment quitter le programme ?", // Message
+                "Confirmation", // Titre de la boîte de dialogue
+                MessageBoxButtons.OKCancel, // Boutons : OK (Quitter) et Annuler
+                MessageBoxIcon.Question // Icône de question
+            );
+
+            // Vérifier la réponse de l'utilisateur
+            if (result == DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
     }
 }
