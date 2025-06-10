@@ -1,31 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using priseRendezVous.Model;
 
 namespace priseRendezVous.View
 {
     public partial class frmMedecin : Form
     {
+        private readonly HttpClient client = new HttpClient();
+        private readonly string apiUrl = "https://localhost:44348/api/Medecins";
+
         public frmMedecin()
         {
             InitializeComponent();
             this.Load += new EventHandler(frmMedecin_Load);
         }
 
-
-        BdRvMedicalContext db = new BdRvMedicalContext();
-
-        private void frmMedecin_Load(object sender, EventArgs e)
+        private async void frmMedecin_Load(object sender, EventArgs e)
         {
-            ResetForm();
-            dgMedecin.DataSource = db.Medecins.ToList();
+            await LoadMedecinsAsync();
+        }
+
+        private async System.Threading.Tasks.Task LoadMedecinsAsync()
+        {
+            try
+            {
+                var response = await client.GetAsync($"{apiUrl}");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                var medecins = JsonConvert.DeserializeObject<List<Medecin>>(json);
+                dgMedecin.DataSource = medecins;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement : " + ex.Message);
+            }
         }
 
         public void ResetForm()
@@ -36,67 +48,76 @@ namespace priseRendezVous.View
             txtTel.Text = string.Empty;
             txtSpecialite.Text = string.Empty;
             txtNumOrdre.Text = string.Empty;
-
-            dgMedecin.DataSource = db.Medecins.ToList();
         }
 
-        private void btnAjouter_Click(object sender, EventArgs e)
+        private async void btnAjouter_Click(object sender, EventArgs e)
         {
-            Medecin medecin = new Medecin();
-
-            medecin.NomPrenom = txtNomPrenom.Text;
-            medecin.Adresse = txtAdresse.Text;
-            medecin.Tel = txtTel.Text;
-            medecin.Email = txtEmail.Text;
-            medecin.NumeroOrdre = txtNumOrdre.Text;
-            medecin.Specialite = txtSpecialite.Text;
-            db.Medecins.Add(medecin);
-            db.SaveChanges();
-            ResetForm();
-
-        }
-
-        private void bntModifier_Click(object sender, EventArgs e)
-        {
-            int? id = int.Parse(dgMedecin.CurrentRow.Cells[3].Value.ToString());
-            if (id.HasValue)
+            var medecin = new Medecin
             {
-                var medecin = db.Medecins.Find(id);
+                NomPrenom = txtNomPrenom.Text,
+                Adresse = txtAdresse.Text,
+                Tel = txtTel.Text,
+                Email = txtEmail.Text,
+                NumeroOrdre = txtNumOrdre.Text,
+                Specialite = txtSpecialite.Text
+            };
 
-                medecin.NomPrenom = txtNomPrenom.Text;
-                medecin.Adresse = txtAdresse.Text;
-                medecin.Tel = txtTel.Text;
-                medecin.Email = txtEmail.Text;
-                medecin.NumeroOrdre = txtNumOrdre.Text;
-                medecin.Specialite = txtSpecialite.Text;
-                db.SaveChanges();
+            var json = JsonConvert.SerializeObject(medecin);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync($"{apiUrl}", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await LoadMedecinsAsync();
+                ResetForm();
+            }
+        }
+
+        private async void bntModifier_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(dgMedecin.CurrentRow.Cells[0].Value.ToString());
+            var medecin = new Medecin
+            {
+                idU = id,
+                NomPrenom = txtNomPrenom.Text,
+                Adresse = txtAdresse.Text,
+                Tel = txtTel.Text,
+                Email = txtEmail.Text,
+                NumeroOrdre = txtNumOrdre.Text,
+                Specialite = txtSpecialite.Text
+            };
+
+            var json = JsonConvert.SerializeObject(medecin);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PutAsync($"{apiUrl}/{id}", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await LoadMedecinsAsync();
                 ResetForm();
             }
         }
 
         private void btnChoisir_Click(object sender, EventArgs e)
         {
-            txtNomPrenom.Text = dgMedecin.CurrentRow.Cells[4].Value.ToString();
-            txtAdresse.Text = dgMedecin.CurrentRow.Cells[7].Value.ToString();
-            txtEmail.Text = dgMedecin.CurrentRow.Cells[6].Value.ToString();
-            txtTel.Text = dgMedecin.CurrentRow.Cells[5].Value.ToString();
-            txtSpecialite.Text = dgMedecin.CurrentRow.Cells[0].Value.ToString();
-            txtNumOrdre.Text = dgMedecin.CurrentRow.Cells[1].Value.ToString();
-
+            txtNomPrenom.Text = dgMedecin.CurrentRow.Cells[1].Value.ToString();
+            txtAdresse.Text = dgMedecin.CurrentRow.Cells[2].Value.ToString();
+            txtTel.Text = dgMedecin.CurrentRow.Cells[3].Value.ToString();
+            txtEmail.Text = dgMedecin.CurrentRow.Cells[4].Value.ToString();
+            txtNumOrdre.Text = dgMedecin.CurrentRow.Cells[5].Value.ToString();
+            txtSpecialite.Text = dgMedecin.CurrentRow.Cells[6].Value.ToString();
         }
 
-        private void btnSupprimer_Click(object sender, EventArgs e)
+        private async void btnSupprimer_Click(object sender, EventArgs e)
         {
-            int? id = int.Parse(dgMedecin.CurrentRow.Cells[3].Value.ToString());
-            if (id.HasValue)
+            int id = int.Parse(dgMedecin.CurrentRow.Cells[0].Value.ToString());
+            var response = await client.DeleteAsync($"{apiUrl}/{id}");
+
+            if (response.IsSuccessStatusCode)
             {
-                var medecin = db.Medecins.Find(id);
-                db.Medecins.Remove(medecin);
+                await LoadMedecinsAsync();
                 ResetForm();
-                db.SaveChanges();
             }
         }
-
     }
-
 }

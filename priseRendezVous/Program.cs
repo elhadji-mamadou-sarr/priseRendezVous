@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using APIRvMedical.Models;
 using priseRendezVous.helper;
 using priseRendezVous.Model;
 
@@ -23,7 +24,7 @@ namespace priseRendezVous
 
             Application.Run(new Form1());
 
-            using (var context = new BdRvMedicalContext())
+            using (var context = new APIRvMedicalContext())
             {
 
                 Console.WriteLine("Connexion à la base de données réussie !");
@@ -31,15 +32,15 @@ namespace priseRendezVous
         }
 
 
-        static void CreateAdmin()
+         static void CreateAdmin()
         {
             try
             {
-                using (var context = new BdRvMedicalContext())
+                using (var context = new APIRvMedicalContext())
                 {
                     if (!context.Admins.Any()) 
                     {
-                        var admin = new Admin
+                        var admin = new APIRvMedical.Models.Admin
                         {
                             Adresse = "ligne",
                             Email = "admin@gmail.com",

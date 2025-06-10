@@ -64,7 +64,6 @@
             this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Nom et Prenom";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // txtNomPrenom
             // 
@@ -231,7 +230,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgPatient);
             this.Name = "frmPatient";
-            this.Text = "frmPatient";
+            this.Text = "Patient";
             this.Load += new System.EventHandler(this.frmPatient_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgPatient)).EndInit();
             this.ResumeLayout(false);

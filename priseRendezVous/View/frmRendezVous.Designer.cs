@@ -72,7 +72,7 @@
             this.label1.Size = new System.Drawing.Size(106, 13);
             this.label1.TabIndex = 17;
             this.label1.Text = "Date du rendez-vous";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // cbMedecin
             // 

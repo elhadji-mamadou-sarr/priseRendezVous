@@ -1,118 +1,106 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+﻿using APIRvMedical.Models;
+using APIRvMedical.DTO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using APIRvMedical.Models;
+using System.Data.Entity;
 
 namespace APIRvMedical.Controllers
 {
     public class RendezVousController : ApiController
     {
-        private APIRvMedicalContext db = new APIRvMedicalContext();
+        private readonly APIRvMedicalContext db = new APIRvMedicalContext();
 
         // GET: api/RendezVous
-        public IQueryable<RendezVous> GetRendezvous()
+        public IQueryable<RendezVousDTO> GetRendezVous()
         {
-            return db.Rendezvous;
+            return db.Rendezvous.Select(rv => new RendezVousDTO
+            {
+                IdRv = rv.IdRv,
+                DateRv = rv.DateRv,
+                Statut = rv.Statut,
+                IdPatient = (int)rv.IdPatient,
+                IdMedecin = (int)rv.IdMedecin,
+                IdSoin = (int)rv.IdSoin
+            });
         }
 
         // GET: api/RendezVous/5
-        [ResponseType(typeof(RendezVous))]
+        [ResponseType(typeof(RendezVousDTO))]
         public IHttpActionResult GetRendezVous(int id)
         {
-            RendezVous rendezVous = db.Rendezvous.Find(id);
-            if (rendezVous == null)
-            {
-                return NotFound();
-            }
+            var rv = db.Rendezvous.Find(id);
+            if (rv == null) return NotFound();
 
-            return Ok(rendezVous);
+            var dto = new RendezVousDTO
+            {
+                IdRv = rv.IdRv,
+                DateRv = rv.DateRv,
+                Statut = rv.Statut,
+                IdPatient = (int)rv.IdPatient,
+                IdMedecin = (int)rv.IdMedecin,
+                IdSoin = (int)rv.IdSoin
+            };
+
+            return Ok(dto);
         }
 
         // PUT: api/RendezVous/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRendezVous(int id, RendezVous rendezVous)
+        public IHttpActionResult PutRendezVous(int id, RendezVousDTO dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (id != dto.IdRv) return BadRequest("Identifiants différents.");
 
-            if (id != rendezVous.IdRv)
-            {
-                return BadRequest();
-            }
+            var rv = db.Rendezvous.Find(id);
+            if (rv == null) return NotFound();
 
-            db.Entry(rendezVous).State = EntityState.Modified;
+            rv.DateRv = dto.DateRv;
+            rv.Statut = dto.Statut;
+            rv.IdPatient = dto.IdPatient;
+            rv.IdMedecin = dto.IdMedecin;
+            rv.IdSoin = dto.IdSoin;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RendezVousExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            db.Entry(rv).State = EntityState.Modified;
+            db.SaveChanges();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/RendezVous
-        [ResponseType(typeof(RendezVous))]
-        public IHttpActionResult PostRendezVous(RendezVous rendezVous)
+        [ResponseType(typeof(RendezVousDTO))]
+        public IHttpActionResult PostRendezVous(RendezVousDTO dto)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var rv = new RendezVous
             {
-                return BadRequest(ModelState);
-            }
+                DateRv = dto.DateRv,
+                Statut = dto.Statut,
+                IdPatient = dto.IdPatient,
+                IdMedecin = dto.IdMedecin,
+                IdSoin = dto.IdSoin
+            };
 
-            db.Rendezvous.Add(rendezVous);
+            db.Rendezvous.Add(rv);
             db.SaveChanges();
+            dto.IdRv = rv.IdRv;
 
-            return CreatedAtRoute("DefaultApi", new { id = rendezVous.IdRv }, rendezVous);
+            return CreatedAtRoute("DefaultApi", new { id = rv.IdRv }, dto);
         }
 
         // DELETE: api/RendezVous/5
-        [ResponseType(typeof(RendezVous))]
+        [ResponseType(typeof(void))]
         public IHttpActionResult DeleteRendezVous(int id)
         {
-            RendezVous rendezVous = db.Rendezvous.Find(id);
-            if (rendezVous == null)
-            {
-                return NotFound();
-            }
+            var rv = db.Rendezvous.Find(id);
+            if (rv == null) return NotFound();
 
-            db.Rendezvous.Remove(rendezVous);
+            db.Rendezvous.Remove(rv);
             db.SaveChanges();
 
-            return Ok(rendezVous);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool RendezVousExists(int id)
-        {
-            return db.Rendezvous.Count(e => e.IdRv == id) > 0;
+            return Ok();
         }
     }
 }

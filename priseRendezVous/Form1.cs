@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using priseRendezVous.helper;
+using priseRendezVous.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using priseRendezVous.helper;
-using priseRendezVous.Model;
 
 namespace priseRendezVous
 {
@@ -30,7 +33,12 @@ namespace priseRendezVous
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Bouton pour se connecter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void button1_Click(object sender, EventArgs e)
         {
             string identifiant = textBoxIdentifiant.Text.Trim();
             string motDePasse = textBoxMotDePasse.Text;
@@ -43,36 +51,53 @@ namespace priseRendezVous
 
             try
             {
-                using (var context = new BdRvMedicalContext())
+                var utilisateur = await AuthentifierUtilisateurAsync(identifiant, motDePasse);
+                if (utilisateur != null)
                 {
-                    // Récupérer le hash MD5 du mot de passe saisi
-                    string motDePasseHash = CryptString.GetMd5Hash(motDePasse);
-
-                    // Vérifier les identifiants
-                    var utilisateur = context.utilisateurs
-                        .FirstOrDefault(u => u.Identifiant == identifiant && u.MotDePasse == motDePasseHash);
-
-                    if (utilisateur != null)
-                    {
-                        // Authentification réussie
-                        OuvrirInterfaceSelonRole(utilisateur);
-                        this.Hide(); // Cache le formulaire de connexion
-                    }
-                    else
-                    {
-                        MessageBox.Show("Identifiant ou mot de passe incorrect", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    OuvrirInterfaceSelonRole(utilisateur);
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Identifiant ou mot de passe incorrect", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur lors de la connexion: {ex.Message}", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Erreur lors de la connexion : {ex.Message}", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-            //rfPatient frmPatient = new rfPatient ();
-            //frmPatient.Show();
-            //this.Hide();
-        
+
+        private async Task<Utilisateur> AuthentifierUtilisateurAsync(string identifiant, string motDePasse)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44348/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var loginInfo = new
+                {
+                    Identifiant = identifiant,
+                    MotDePasse = motDePasse // Non hashé ici, c’est l’API qui hash
+                };
+
+                string jsonData = JsonConvert.SerializeObject(loginInfo);
+                HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync("api/auth/login", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    var utilisateur = JsonConvert.DeserializeObject<Utilisateur>(json);
+                    return utilisateur;
+                }
+
+                return null;
+            }
+        }
+
 
         private void btnFermer_Click(object sender, EventArgs e)
         {

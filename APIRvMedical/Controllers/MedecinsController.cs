@@ -1,118 +1,97 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using APIRvMedical.Models;
+using APIRvMedical.DTO;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
-using APIRvMedical.Models;
 
 namespace APIRvMedical.Controllers
 {
+    [RoutePrefix("api/medecins")]
     public class MedecinsController : ApiController
     {
         private APIRvMedicalContext db = new APIRvMedicalContext();
 
-        // GET: api/Medecins
-        public IQueryable<Medecin> GetPersonnes()
+        // GET: api/medecins
+        [HttpGet]
+        [Route("")]
+        public IHttpActionResult GetAll()
         {
-            return (IQueryable<Medecin>)db.Personnes;
+            var medecins = db.Medecins.ToList();
+            return Ok(medecins);
         }
 
-        // GET: api/Medecins/5
-        [ResponseType(typeof(Medecin))]
-        public IHttpActionResult GetMedecin(int id)
+        // GET: api/medecins/5
+        [HttpGet]
+        [Route("{id:int}")]
+        public IHttpActionResult GetById(int id)
         {
-            Medecin medecin = (Medecin)db.Personnes.Find(id);
+            var medecin = db.Medecins.Find(id);
             if (medecin == null)
-            {
                 return NotFound();
-            }
 
             return Ok(medecin);
         }
 
-        // PUT: api/Medecins/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutMedecin(int id, Medecin medecin)
+        // POST: api/medecins
+        [HttpPost]
+        [Route("")]
+        public IHttpActionResult AddMedecin(MedecinDto form)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            if (id != medecin.idU)
+            var medecin = new Medecin
             {
-                return BadRequest();
-            }
+                NomPrenom = form.NomPrenom,
+                Tel = form.Tel,
+                Email = form.Email,
+                Adresse = form.Adresse,
+                Specialite = form.Specialite,
+                NumeroOrdre = form.NumeroOrdre
+            };
 
-            db.Entry(medecin).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MedecinExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Medecins
-        [ResponseType(typeof(Medecin))]
-        public IHttpActionResult PostMedecin(Medecin medecin)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Personnes.Add(medecin);
+            db.Medecins.Add(medecin);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = medecin.idU }, medecin);
         }
 
-        // DELETE: api/Medecins/5
-        [ResponseType(typeof(Medecin))]
-        public IHttpActionResult DeleteMedecin(int id)
+        // PUT: api/medecins/5
+        [HttpPut]
+        [Route("{id:int}")]
+        public IHttpActionResult UpdateMedecin(int id, MedecinDto form)
         {
-            Medecin medecin = (Medecin)db.Personnes.Find(id);
+            var medecin = db.Medecins.Find(id);
             if (medecin == null)
-            {
                 return NotFound();
-            }
 
-            db.Personnes.Remove(medecin);
+            medecin.NomPrenom = form.NomPrenom;
+            medecin.Tel = form.Tel;
+            medecin.Email = form.Email;
+            medecin.Adresse = form.Adresse;
+            medecin.Specialite = form.Specialite;
+            medecin.NumeroOrdre = form.NumeroOrdre;
+
+            db.Entry(medecin).State = EntityState.Modified;
             db.SaveChanges();
 
             return Ok(medecin);
         }
 
-        protected override void Dispose(bool disposing)
+        // DELETE: api/medecins/5
+        [HttpDelete]
+        [Route("{id:int}")]
+        public IHttpActionResult DeleteMedecin(int id)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+            var medecin = db.Medecins.Find(id);
+            if (medecin == null)
+                return NotFound();
 
-        private bool MedecinExists(int id)
-        {
-            return db.Personnes.Count(e => e.idU == id) > 0;
+            db.Medecins.Remove(medecin);
+            db.SaveChanges();
+
+            return Ok();
         }
     }
 }

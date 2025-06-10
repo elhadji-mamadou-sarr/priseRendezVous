@@ -1,83 +1,185 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using priseRendezVous.Model;
 
 namespace priseRendezVous.View
 {
     public partial class frmSoin : Form
     {
+        private readonly HttpClient client = new HttpClient();
+        private readonly string apiUrl = "https://localhost:44348/api/Soins";
+
         public frmSoin()
         {
             InitializeComponent();
             this.Load += new EventHandler(frmSoin_Load);
         }
 
-        BdRvMedicalContext db = new BdRvMedicalContext();
-
-        private void frmSoin_Load(object sender, EventArgs e)
+        private async void frmSoin_Load(object sender, EventArgs e)
         {
-
-            ResetForm();
-            dgSoin.DataSource = db.soins.ToList();
+            await LoadSoinsAsync();
         }
 
-        public void ResetForm()
+        private async System.Threading.Tasks.Task LoadSoinsAsync()
+        {
+            try
+            {
+                var response = await client.GetAsync($"{apiUrl}/Getsoins");
+                response.EnsureSuccessStatusCode();
+                var json = await response.Content.ReadAsStringAsync();
+                var soins = JsonConvert.DeserializeObject<List<Soin>>(json);
+                dgSoin.DataSource = soins;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement : " + ex.Message);
+            }
+        }
+
+        private void ResetForm()
         {
             txtLibelle.Text = string.Empty;
             txtCout.Text = string.Empty;
-
-            dgSoin.DataSource = db.soins.ToList();
         }
 
-
-        private void btnAjouter_Click(object sender, EventArgs e)
+        private async void btnAjouter_Click(object sender, EventArgs e)
         {
-            Soin s = new Soin();
-
-            s.libelle = txtLibelle.Text;
-            s.cout = float.Parse(txtCout.Text);
-            db.soins.Add(s);
-            db.SaveChanges();
-            ResetForm();
-        }
-
-        private void bntModifier_Click(object sender, EventArgs e)
-        {
-
-            int? id = int.Parse(dgSoin.CurrentRow.Cells[0].Value.ToString());
-            if (id.HasValue)
+            if (string.IsNullOrWhiteSpace(txtLibelle.Text) || string.IsNullOrWhiteSpace(txtCout.Text))
             {
-                var s = db.soins.Find(id);
+                MessageBox.Show("Veuillez remplir tous les champs.");
+                return;
+            }
 
-                s.libelle = txtLibelle.Text;
-                s.cout = float.Parse(txtCout.Text);
-                db.SaveChanges();
-                ResetForm();
+            if (!float.TryParse(txtCout.Text, out float cout))
+            {
+                MessageBox.Show("Le coût doit être un nombre valide.");
+                return;
+            }
+
+            var soin = new Soin
+            {
+                libelle = txtLibelle.Text,
+                cout = cout
+            };
+
+            try
+            {
+                var json = JsonConvert.SerializeObject(soin);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync($"{apiUrl}/PostSoin", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await LoadSoinsAsync();
+                    ResetForm();
+                }
+                else
+                {
+                    MessageBox.Show("Échec de l'ajout.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors de l'ajout : " + ex.Message);
+            }
+        }
+
+        private async void bntModifier_Click(object sender, EventArgs e)
+        {
+            if (dgSoin.CurrentRow == null)
+            {
+                MessageBox.Show("Veuillez sélectionner un soin.");
+                return;
+            }
+
+            if (!int.TryParse(dgSoin.CurrentRow.Cells[0].Value.ToString(), out int id))
+            {
+                MessageBox.Show("ID invalide.");
+                return;
+            }
+
+            if (!float.TryParse(txtCout.Text, out float cout))
+            {
+                MessageBox.Show("Le coût doit être un nombre valide.");
+                return;
+            }
+
+            var soin = new Soin
+            {
+                IdSoin = id,
+                libelle = txtLibelle.Text,
+                cout = cout
+            };
+
+            try
+            {
+                var json = JsonConvert.SerializeObject(soin);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PutAsync($"{apiUrl}/PutSoin/{id}", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await LoadSoinsAsync();
+                    ResetForm();
+                }
+                else
+                {
+                    MessageBox.Show("Échec de la modification.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors de la modification : " + ex.Message);
             }
         }
 
         private void btnChoisir_Click(object sender, EventArgs e)
         {
-            txtLibelle.Text = dgSoin.CurrentRow.Cells[1].Value.ToString();
-            txtCout.Text = dgSoin.CurrentRow.Cells[2].Value.ToString();
+            if (dgSoin.CurrentRow != null)
+            {
+                txtLibelle.Text = dgSoin.CurrentRow.Cells[1].Value.ToString();
+                txtCout.Text = dgSoin.CurrentRow.Cells[2].Value.ToString();
+            }
         }
 
-        private void bntSupprimer_Click(object sender, EventArgs e)
+        private async void bntSupprimer_Click(object sender, EventArgs e)
         {
-            int? id = int.Parse(dgSoin.CurrentRow.Cells[0].Value.ToString());
-            if (id.HasValue)
+            if (dgSoin.CurrentRow == null)
             {
-                var s = db.soins.Find(id);
-                db.soins.Remove(s);
-                ResetForm();
-                db.SaveChanges();
+                MessageBox.Show("Veuillez sélectionner un soin à supprimer.");
+                return;
+            }
+
+            if (!int.TryParse(dgSoin.CurrentRow.Cells[0].Value.ToString(), out int id))
+            {
+                MessageBox.Show("ID invalide.");
+                return;
+            }
+
+            var confirm = MessageBox.Show("Voulez-vous vraiment supprimer ce soin ?", "Confirmation", MessageBoxButtons.YesNo);
+            if (confirm != DialogResult.Yes) return;
+
+            try
+            {
+                var response = await client.DeleteAsync($"{apiUrl}/DeleteSoin/{id}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await LoadSoinsAsync();
+                    ResetForm();
+                }
+                else
+                {
+                    MessageBox.Show("Échec de la suppression.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors de la suppression : " + ex.Message);
             }
         }
     }

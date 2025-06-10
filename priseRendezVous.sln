@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetierRvMedical", "MetierRv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIRvMedical", "APIRvMedical\APIRvMedical.csproj", "{9F05F2E6-3A51-476C-927E-4DD20B0BB63A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetierRendMedical", "MetierRendMedical\MetierRendMedical.csproj", "{92584271-51E1-46ED-A59E-BD6C4392AC10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9F05F2E6-3A51-476C-927E-4DD20B0BB63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F05F2E6-3A51-476C-927E-4DD20B0BB63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F05F2E6-3A51-476C-927E-4DD20B0BB63A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92584271-51E1-46ED-A59E-BD6C4392AC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92584271-51E1-46ED-A59E-BD6C4392AC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92584271-51E1-46ED-A59E-BD6C4392AC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92584271-51E1-46ED-A59E-BD6C4392AC10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
