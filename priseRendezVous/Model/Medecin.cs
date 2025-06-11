@@ -17,5 +17,5 @@ namespace priseRendezVous.Model
         public string NumeroOrdre { get; set; }
 
         public virtual ICollection<Agenda> Agenda { get; set; }
-    }
+    
 }

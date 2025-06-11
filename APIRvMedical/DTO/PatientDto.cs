@@ -11,7 +11,7 @@ namespace APIRvMedical.DTO
         public string Tel { get; set; }
         public string Email { get; set; }
         public string Adresse { get; set; }
-
+           
         public string GroupeSanguin { get; set; }
         public float Poids { get; set; }
 

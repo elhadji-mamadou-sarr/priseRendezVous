@@ -11,6 +11,7 @@
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
 
+
             SetSqlGenerator("MySql.Data.MySqlClient", new MySqlMigrationSqlGenerator());
         }
 

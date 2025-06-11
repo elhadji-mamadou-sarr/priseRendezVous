@@ -12,6 +12,8 @@ namespace APIRvMedical.DTO
         public string Statut { get; set; }
         public int IdPatient { get; set; }
         public int IdMedecin { get; set; }
+
+
         public int IdSoin { get; set; }
     }
 }
