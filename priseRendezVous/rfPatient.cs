@@ -71,9 +71,9 @@ namespace priseRendezVous
             // Afficher une boîte de dialogue de confirmation
             DialogResult result = MessageBox.Show(
                 "Voulez-vous vraiment vous deconnecter ?", // Message
-                "Confirmation", // Titre de la boîte de dialogue
-                MessageBoxButtons.OKCancel, // Boutons : OK (Quitter) et Annuler
-                MessageBoxIcon.Question // Icône de question
+                "Confirmation", 
+                MessageBoxButtons.OKCancel, 
+                MessageBoxIcon.Question
             );
 
             // Vérifier la réponse de l'utilisateur
@@ -81,8 +81,8 @@ namespace priseRendezVous
             {
                 Form1 connection = new Form1();
                 connection.MdiParent = this;
-                connection.Show();
                 this.Close();
+                connection.Show();
                 //Application.Exit();
             }
         }
