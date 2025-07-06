@@ -1,21 +1,26 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using priseRendezVous.Model;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using priseRendezVous.Model;
 
 namespace priseRendezVous.View
 {
     public partial class frmSoin : Form
     {
         private readonly HttpClient client = new HttpClient();
-        private readonly string apiUrl = "https://localhost:44348/api/Soins";
+        private readonly string apiBaseUrl;
+        private readonly string apiUrl;
 
         public frmSoin()
         {
             InitializeComponent();
+
+            apiBaseUrl = ConfigurationManager.AppSettings["BaseApiUrl"];
+            apiUrl = $"{apiBaseUrl}/soins";
             this.Load += new EventHandler(frmSoin_Load);
         }
 
@@ -28,7 +33,8 @@ namespace priseRendezVous.View
         {
             try
             {
-                var response = await client.GetAsync($"{apiUrl}/Getsoins");
+                // var response = await client.GetAsync($"{apiUrl}/Getsoins");
+                var response = await client.GetAsync($"{apiUrl}");
                 response.EnsureSuccessStatusCode();
                 var json = await response.Content.ReadAsStringAsync();
                 var soins = JsonConvert.DeserializeObject<List<Soin>>(json);
@@ -70,7 +76,8 @@ namespace priseRendezVous.View
             {
                 var json = JsonConvert.SerializeObject(soin);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync($"{apiUrl}/PostSoin", content);
+                //var response = await client.PostAsync($"{apiUrl}/PostSoin", content);
+                var response = await client.PostAsync($"{apiUrl}", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -119,7 +126,8 @@ namespace priseRendezVous.View
             {
                 var json = JsonConvert.SerializeObject(soin);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PutAsync($"{apiUrl}/PutSoin/{id}", content);
+                //var response = await client.PutAsync($"{apiUrl}/PutSoin/{id}", content);
+                var response = await client.PutAsync($"{apiUrl}/{id}", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -165,7 +173,8 @@ namespace priseRendezVous.View
 
             try
             {
-                var response = await client.DeleteAsync($"{apiUrl}/DeleteSoin/{id}");
+                //var response = await client.DeleteAsync($"{apiUrl}/DeleteSoin/{id}");
+                var response = await client.DeleteAsync($"{apiUrl}/{id}");
 
                 if (response.IsSuccessStatusCode)
                 {

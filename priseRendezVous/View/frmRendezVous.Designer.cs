@@ -72,7 +72,6 @@
             this.label1.Size = new System.Drawing.Size(106, 13);
             this.label1.TabIndex = 17;
             this.label1.Text = "Date du rendez-vous";
-            //this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // cbMedecin
             // 
@@ -201,6 +200,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ControlBox = false;
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtStatut);
             this.Controls.Add(this.btnSupprimer);

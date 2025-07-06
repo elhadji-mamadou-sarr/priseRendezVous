@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using priseRendezVous.Model;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -14,11 +15,16 @@ namespace priseRendezVous.View
     public partial class frmRendezVous : Form
     {
         private readonly HttpClient _httpClient;
-        private readonly string apiUrl = "https://localhost:44348/api/RendezVous";
+        private readonly string apiBaseUrl;
+        private readonly string apiUrl;
+
 
         public frmRendezVous()
         {
             InitializeComponent();
+            apiBaseUrl = ConfigurationManager.AppSettings["BaseApiUrl"];
+            apiUrl = $"{apiBaseUrl}/rendezVous";
+
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Accept.Clear();
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -36,13 +42,13 @@ namespace priseRendezVous.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erreur de chargement : " + ex.Message);
+                MessageBox.Show("Erreur de chargement : " + ex);
             }
         }
 
         private async Task LoadPatientsAsync()
         {
-            var response = await _httpClient.GetAsync("https://localhost:44348/api/Patients");
+            var response = await _httpClient.GetAsync($"{apiBaseUrl}/patients");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
             var patients = JsonConvert.DeserializeObject<List<Patient>>(json);
@@ -53,7 +59,7 @@ namespace priseRendezVous.View
 
         private async Task LoadMedecinsAsync()
         {
-            var response = await _httpClient.GetAsync("https://localhost:44348/api/Medecins");
+            var response = await _httpClient.GetAsync($"{apiBaseUrl}/medecins");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
             var medecins = JsonConvert.DeserializeObject<List<Medecin>>(json);
@@ -64,7 +70,7 @@ namespace priseRendezVous.View
 
         private async Task LoadSoinsAsync()
         {
-            var response = await _httpClient.GetAsync("https://localhost:44348/api/Soins/Getsoins");
+            var response = await _httpClient.GetAsync($"{apiBaseUrl}/soins");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
             var soins = JsonConvert.DeserializeObject<List<Soin>>(json);
@@ -75,10 +81,10 @@ namespace priseRendezVous.View
 
         private async Task LoadRendezVousAsync()
         {
-            var response = await _httpClient.GetAsync($"{apiUrl}/GetRendezVous");
+            var response = await _httpClient.GetAsync($"{apiUrl}");
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
-            var rdvs = JsonConvert.DeserializeObject<List<RendezVousDTO>>(json);
+            var rdvs = JsonConvert.DeserializeObject<List<RendezVous>>(json);
             dgRendezVous.DataSource = rdvs;
         }
 
@@ -90,7 +96,7 @@ namespace priseRendezVous.View
             var json = JsonConvert.SerializeObject(rv);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync($"{apiUrl}/PostRendezVous", content);
+            var response = await _httpClient.PostAsync($"{apiUrl}", content);
             if (response.IsSuccessStatusCode)
             {
                 MessageBox.Show("Rendez-vous ajouté !");
@@ -106,7 +112,7 @@ namespace priseRendezVous.View
         {
             if (dgRendezVous.CurrentRow != null){
 
-                var selected = (RendezVousDTO)dgRendezVous.CurrentRow.DataBoundItem;
+                var selected = (RendezVous)dgRendezVous.CurrentRow.DataBoundItem;
 
                 var rv = GetRendezVousFromForm();
                 if (rv == null) return;
@@ -116,7 +122,7 @@ namespace priseRendezVous.View
                 var json = JsonConvert.SerializeObject(rv);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PutAsync($"{apiUrl}/PutRendezVous/{rv.IdRv}", content);
+                var response = await _httpClient.PutAsync($"{apiUrl}/{rv.IdRv}", content);
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Rendez-vous modifié !");
@@ -144,7 +150,7 @@ namespace priseRendezVous.View
         {
             if (dgRendezVous.CurrentRow != null)
             {
-                var selected = (RendezVousDTO)dgRendezVous.CurrentRow.DataBoundItem;
+                var selected = (RendezVous)dgRendezVous.CurrentRow.DataBoundItem;
                 dtpDateRv.Value = selected.DateRv;
                 txtStatut.Text = selected.Statut;
                 cbPatient.SelectedValue = selected.IdPatient;
@@ -153,7 +159,7 @@ namespace priseRendezVous.View
             }
         }
 
-        private RendezVousDTO GetRendezVousFromForm()
+        private RendezVous GetRendezVousFromForm()
         {
             if (cbPatient.SelectedValue == null || cbMedecin.SelectedValue == null || cbSoin.SelectedValue == null)
             {
@@ -161,7 +167,7 @@ namespace priseRendezVous.View
                 return null;
             }
 
-            return new RendezVousDTO
+            return new RendezVous
             {
                 DateRv = dtpDateRv.Value,
                 Statut = txtStatut.Text.Trim(),

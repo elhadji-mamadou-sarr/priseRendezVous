@@ -1,22 +1,28 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using priseRendezVous.Model;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using priseRendezVous.Model;
 
 namespace priseRendezVous.View
 {
     public partial class frmPatient : Form
     {
         private readonly HttpClient client = new HttpClient();
-        private const string baseUrl = "https://localhost:44348/api/patients"; 
+        private readonly string apiBaseUrl;
+        private readonly string baseUrl;
 
         public frmPatient()
         {
             InitializeComponent();
+
+            apiBaseUrl = ConfigurationManager.AppSettings["BaseApiUrl"];
+            baseUrl = $"{apiBaseUrl}/patients";
+
             client.BaseAddress = new Uri(baseUrl);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -78,6 +84,12 @@ namespace priseRendezVous.View
                     await LoadPatients();
                     ResetForm();
                 }
+                else
+                {
+                    string errorContent = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show("Erreur HTTP: " + response.StatusCode + "\n" + errorContent);
+                }
+
             }
             catch (Exception ex)
             {
@@ -107,7 +119,7 @@ namespace priseRendezVous.View
             int id = (int)dgPatient.CurrentRow.Cells["idU"].Value;
             var patient = new Patient
             {
-                idU = id,
+                //idU = id,
                 NomPrenom = txtNomPrenom.Text,
                 Adresse = txtAdresse.Text,
                 Tel = txtTel.Text,
@@ -128,8 +140,10 @@ namespace priseRendezVous.View
             }
             else
             {
-                MessageBox.Show("Erreur lors de la modification");
+                string errorContent = await response.Content.ReadAsStringAsync();
+                MessageBox.Show("Erreur lors de la modification : " + response.StatusCode + "\n" + errorContent);
             }
+
         }
 
         private async void btnSupprimer_Click(object sender, EventArgs e)
