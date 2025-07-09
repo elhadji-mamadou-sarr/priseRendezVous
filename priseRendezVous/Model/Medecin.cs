@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace priseRendezVous.Model
 {
-    internal class Medecin: Personne
+    internal class Medecin : Personne
     {
 
         [MaxLength(100)]
@@ -17,5 +17,6 @@ namespace priseRendezVous.Model
         public string NumeroOrdre { get; set; }
 
         public virtual ICollection<Agenda> Agenda { get; set; }
-    
-}
+
+    } 
+   }

@@ -176,5 +176,10 @@ namespace priseRendezVous.View
                 IdSoin = (int)cbSoin.SelectedValue
             };
         }
+
+        private void dgRendezVous_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

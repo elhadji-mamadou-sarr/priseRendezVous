@@ -140,5 +140,10 @@ namespace priseRendezVous.View
                 ResetForm();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
